@@ -167,11 +167,175 @@ farmsdfst = pd.read_csv ('Dataset/FarmsStatus.csv')
 
 if option2 == 'Rice':
 
+    # Streamlit app
+    st.header("Season Scores")
+    col1, col2, col3, col4 = st.columns(4)
+
+    # HTML for the hardcoded table
+    table_html = """
+    <table>
+        <tr>
+            <th>Season</th>
+            <th>Score</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>57.38</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>59.21</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>42.64</td>
+        </tr>
+    </table>
+    """
+
+    # Display the HTML table in Streamlit
+    col1.markdown(table_html, unsafe_allow_html=True)
+
+    with col2:
+        max_weight = 100  # Maximum weight in KG
+        current_weight = 57.38  # Current weight in KG
+        progress_html = animated_circular_progress_bar('Season1', current_weight, max_weight, color='orange',
+                                                       max_size=95)
+        st.components.v1.html(progress_html, height=105)
+
+
+    with col3:
+        max_weight = 100  # Maximum weight in KG
+        current_weight = 59.21  # Current weight in KG
+        progress_html = animated_circular_progress_bar('Season2', current_weight, max_weight, color='orange',
+                                                       max_size=95)
+        st.components.v1.html(progress_html, height=105)
+
+
+    with col4:
+        max_weight = 100  # Maximum weight in KG
+        current_weight = 42.64  # Current weight in KG
+        progress_html = animated_circular_progress_bar('Season3', current_weight, max_weight, color='red',
+                                                       max_size=95)
+        st.components.v1.html(progress_html, height=105)
+
+    st.header("Comparison Best Season and Worst Season in Rice Traits")
+
+    st.markdown(printCostumTitleAndContenth3("Best Season",
+                                             ""),
+                unsafe_allow_html=True)
+
+    col1, col2, col3, col4, col5, col6 = st.columns(6)
+    with col1:
+        max_weight = 7  # Maximum weight in KG
+        current_weight = 5  # Current weight in KG
+        progress_html = animated_circular_progress_bar('No. of Tiller', current_weight, max_weight, color='orange',
+                                                       max_size=95)
+        st.components.v1.html(progress_html, height=105)
+
+    with col2:
+        max_weight = 5  # Maximum weight in KG
+        current_weight = 4  # Current weight in KG
+        progress_html = animated_circular_progress_bar('No. of Panicle', current_weight, max_weight, color='green',
+                                                       max_size=95)
+        st.components.v1.html(progress_html, height=105)
+
+    with col3:
+        max_weight = 42  # Maximum weight in KG
+        current_weight = 36  # Current weight in KG
+        progress_html = animated_circular_progress_bar('No. of Spikelet', current_weight, max_weight, color='green',
+                                                       max_size=95)
+        st.components.v1.html(progress_html, height=105)
+
+    with col4:
+        max_weight = 803  # Maximum weight in KG
+        current_weight = 574  # Current weight in KG
+        progress_html = animated_circular_progress_bar('No. of Filled Grain', current_weight, max_weight, color='orange',
+                                                       max_size=95)
+        st.components.v1.html(progress_html, height=105)
+
+    with col5:
+        max_weight = 343  # Maximum weight in KG
+        current_weight = 288  # Current weight in KG
+        progress_html = animated_circular_progress_bar('No. Of Unfilled Grain', current_weight, max_weight,
+                                                       color='orange',
+                                                       max_size=95)
+        st.components.v1.html(progress_html, height=105)
+
+    with col6:
+        max_weight = 33  # Maximum weight in KG
+        current_weight = 32.08  # Current weight in KG
+        progress_html = animated_circular_progress_bar('Weight Grain(1000 grains)', current_weight, max_weight,
+                                                       color='green',
+                                                       max_size=95)
+        st.components.v1.html(progress_html, height=105)
+
+
+    st.markdown(printCostumTitleAndContenth3("Worst Season",
+                                             ""),
+                unsafe_allow_html=True)
+
+    col1, col2, col3, col4, col5, col6 = st.columns(6)
+    with col1:
+        max_weight = 7  # Maximum weight in KG
+        current_weight = 6  # Current weight in KG
+        progress_html = animated_circular_progress_bar('No. of Tiller', current_weight, max_weight, color='green',
+                                                       max_size=95)
+        st.components.v1.html(progress_html, height=105)
+
+    with col2:
+        max_weight = 5  # Maximum weight in KG
+        current_weight = 4  # Current weight in KG
+        progress_html = animated_circular_progress_bar('No. of Panicle', current_weight, max_weight, color='green',
+                                                       max_size=95)
+        st.components.v1.html(progress_html, height=105)
+
+    with col3:
+        max_weight = 42  # Maximum weight in KG
+        current_weight = 34  # Current weight in KG
+        progress_html = animated_circular_progress_bar('No. of Spikelet', current_weight, max_weight, color='orange',
+                                                       max_size=95)
+        st.components.v1.html(progress_html, height=105)
+
+    with col4:
+        max_weight = 803  # Maximum weight in KG
+        current_weight = 151  # Current weight in KG
+        progress_html = animated_circular_progress_bar('No. of Filled Grain', current_weight, max_weight,
+                                                       color='red',
+                                                       max_size=95)
+        st.components.v1.html(progress_html, height=105)
+
+    with col5:
+        max_weight = 343  # Maximum weight in KG
+        current_weight = 130  # Current weight in KG
+        progress_html = animated_circular_progress_bar('No. Of Unfilled Grain', current_weight, max_weight,
+                                                       color='red',
+                                                       max_size=95)
+        st.components.v1.html(progress_html, height=105)
+
+    with col6:
+        max_weight = 33  # Maximum weight in KG
+        current_weight = 20  # Current weight in KG
+        progress_html = animated_circular_progress_bar('Weight Grain(1000 grains)', current_weight, max_weight,
+                                                       color='orange',
+                                                       max_size=95)
+        st.components.v1.html(progress_html, height=105)
+
+    st.markdown(printCostumTitleAndContenth3("Nutrients Level",
+                                             "what is the Risk level of each Nutrients that has been measured."),
+                unsafe_allow_html=True)
+
+
+
+
+
+
+
+
     if option == 'Season1':
         st.markdown(printCostumTitleAndContenth3("Rice trait",
                                                  "what is the Risk level of each growth trait that has been measured."),
                     unsafe_allow_html=True)
-
         col1, col2,col3, col4, col5, col6 = st.columns(6)
         with col1:
             max_weight = 129  # Maximum weight in KG
