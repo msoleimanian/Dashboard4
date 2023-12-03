@@ -157,7 +157,7 @@ option2 = st.sidebar.selectbox(
 option = st.sidebar.selectbox(
    "Select the Season...",
    ("Season1", "Season2", "Season3"),
-   index=None,
+   index=0,
    placeholder="Select the farm...",
 )
 
