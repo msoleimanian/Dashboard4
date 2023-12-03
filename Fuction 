@@ -1,0 +1,48 @@
+col1, col2 = st.columns(2)
+    with col1:
+        st.markdown(printCostumTitleAndContenth3("Farm Progress",
+                                                 "You can see the status of the Farm."),
+                    unsafe_allow_html=True)
+        max_weight = 100  # Maximum weight in KG
+        current_weight = 44  # Current weight in KG
+        progress_html = animated_circular_progress_bar('FARM', current_weight, max_weight, color='Red', max_size=250)
+        st.components.v1.html(progress_html, height=300)
+
+    with col2:
+        st.markdown(printCostumTitleAndContenth3("Daily Action Plan",
+                                                 "There are some Action Plan for You for to Day!"),unsafe_allow_html=True)
+        def generate_nutrient_increase_suggestions(ca_increase, mg_increase):
+            ca_suggestion = f"Increase Calcium (Ca) levels by {ca_increase}%. Consider using Ca-containing fertilizers for better crop development."
+
+            mg_suggestion = f"Increase Magnesium (Mg) levels by {mg_increase}%. Use Mg-rich fertilizers to improve soil fertility."
+
+            return ca_suggestion, mg_suggestion
+
+
+        # Set the percentage increase for Calcium (Ca) and Magnesium (Mg)
+        ca_increase_percentage = 14
+        mg_increase_percentage = 16
+
+        # Generate suggestions for increasing Ca and Mg levels
+        ca_suggestion, mg_suggestion = generate_nutrient_increase_suggestions(ca_increase_percentage,
+                                                                              mg_increase_percentage)
+
+        # Define the CSS for the card style
+        card_style = """
+            background-color: #f1f1f1;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+        """
+
+        # Show the suggestions in separate cards
+        with st.container():
+            # Card for increasing Ca levels
+            st.markdown('<div style="{}">{}</div>'.format(card_style, ca_suggestion), unsafe_allow_html=True)
+
+            # Card for increasing Mg levels
+            st.markdown('<div style="{}">{}</div>'.format(card_style, mg_suggestion), unsafe_allow_html=True)
+
+
+    st.markdown(animated_line_html, unsafe_allow_html=True)
