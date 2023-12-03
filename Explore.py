@@ -167,7 +167,6 @@ farmsdfst = pd.read_csv ('Dataset/FarmsStatus.csv')
 
 if option2 == 'Rice':
     if option == 'Season1':
-        st.write("klkjkhkjhkjh")
         st.markdown(printCostumTitleAndContenth3("Rice trait",
                                                  "what is the Risk level of each growth trait that has been measured."),
                     unsafe_allow_html=True)
