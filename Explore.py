@@ -148,7 +148,7 @@ st.set_page_config(page_title="Insight", page_icon="📈")
 option2 = st.sidebar.selectbox(
    "Select the Farm",
    ("Pok choy", "Rice"),
-   index=None,
+   index=1,
    placeholder="Select the farm...",
 )
 
