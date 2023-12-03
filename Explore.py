@@ -148,7 +148,7 @@ st.set_page_config(page_title="Insight", page_icon="📈")
 option2 = st.sidebar.selectbox(
    "Select the Farm",
    ("Pok choy", "Rice"),
-   index=2,
+   index=None,
    placeholder="Select the farm...",
 )
 
@@ -166,53 +166,7 @@ farmsdfst = pd.read_csv ('Dataset/FarmsStatus.csv')
 
 
 if option2 == 'Rice':
-    data = [
-        {"Season": 1, "Score": 57.38},
-        {"Season": 2, "Score": 59.21},
-        {"Season": 3, "Score": 42.64},
-    ]
 
-    # Streamlit app
-    st.title("Season Scores Table")
-
-    # HTML for the table
-    table_html = """
-       <style>
-           table {
-               width: 50%;
-               border-collapse: collapse;
-               margin-top: 20px;
-           }
-           th, td {
-               border: 1px solid #dddddd;
-               text-align: left;
-               padding: 8px;
-           }
-           th {
-               background-color: #f2f2f2;
-           }
-       </style>
-       <table>
-           <tr>
-               <th>Season</th>
-               <th>Score</th>
-           </tr>
-       """
-
-    for row in data:
-        table_html += f"""
-           <tr>
-               <td>{row['Season']}</td>
-               <td>{row['Score']}</td>
-           </tr>
-           """
-
-    table_html += "</table>"
-
-    # Display the HTML table in Streamlit
-    st.markdown(table_html, unsafe_allow_html=True)
-
-    
     if option == 'Season1':
         st.markdown(printCostumTitleAndContenth3("Rice trait",
                                                  "what is the Risk level of each growth trait that has been measured."),
