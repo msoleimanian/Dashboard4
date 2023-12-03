@@ -165,7 +165,7 @@ option = st.sidebar.selectbox(
 farmsdfst = pd.read_csv ('Dataset/FarmsStatus.csv')
 
 
-st.write("")
+st.write("hgfhgfhgfghfgh")
 if option2 == 'Rice':
     if option == 'Season1':
         st.markdown(printCostumTitleAndContenth3("Rice trait",
