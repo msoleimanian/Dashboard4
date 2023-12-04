@@ -87,10 +87,3 @@ st.write("Note: Each group represents a season, and each bar within the group re
 
 
 
-
-
-
-
-
-
-
