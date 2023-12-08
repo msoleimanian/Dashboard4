@@ -20,7 +20,7 @@ plot_numbers = {'Season 1': ['Plot1', 'Plot3', 'Plot4', 'Plot5'],
                 'Season 2': ['Plot1', 'Plot3', 'Plot4', 'Plot5'],
                 'Season 3': ['Plot1', 'Plot3', 'Plot4', 'Plot5']}
 
-columns = ['Plant Height', 'No. of Tiller', 'No. of Panicle', 'SPAD', 'No. of Spikelet',
+columns = ['Plant Height', 'No. of Tiller', 'No. of Panicle', 'No. of Spikelet',
            'No. of Filled Grain', 'No. Of Unfilled Grain', 'Weight Grain (1000 grains)']
 
 # Create an empty list to store data
@@ -39,20 +39,20 @@ data_entry = pd.DataFrame(data_rows)
 
 # Provide a 2D array to fill in the numbers
 numbers_to_fill = [
-    [98.51, 6, 5, 28.48, 42, 195, 154, 26.27],
-    [98, 5, 5, 26.35, 35, 122, 155, 24.26],
-    [93.20, 5, 4, 28.81, 27, 137, 46, 25.95],
-    [93.99, 7, 5, 32.22, 35, 150, 163, 23.25],
+    [98.51, 6, 5,  42, 195, 154, 26.27],
+    [98, 5, 5,  35, 122, 155, 24.26],
+    [93.20, 5, 4,  27, 137, 46, 25.95],
+    [93.99, 7, 5,  35, 150, 163, 23.25],
 
-    [103.16, 5, 5, 0, 38, 188, 271, 33.31],
-    [98.75, 5, 5, 0, 38, 803, 250, 31.01],
-    [88.80, 4, 4, 0, 30, 643, 343, 30.55],
-    [92.07, 5, 5, 0, 37, 662, 290, 33.46],
+    [103.16, 5, 5,  38, 188, 271, 33.31],
+    [98.75, 5, 5, 38, 803, 250, 31.01],
+    [88.80, 4, 4,  30, 643, 343, 30.55],
+    [92.07, 5, 5, 37, 662, 290, 33.46],
 
-    [100.16, 5, 5, 0, 41, 84, 16, 33.19],
-    [96.95, 5, 4, 0, 41, 84, 16, 31.43],
-    [88.17, 3, 4, 0, 30, 86, 14, 26.20],
-    [93.98, 4, 4, 0, 37, 82, 5, 24.23],
+    [100.16, 5, 5, 41, 84, 16, 33.19],
+    [96.95, 5, 4,  41, 84, 16, 31.43],
+    [88.17, 3, 4,  30, 86, 14, 26.20],
+    [93.98, 4, 4,  37, 82, 5, 24.23],
 ]
 
 # Fill up the DataFrame with the provided numbers
@@ -110,14 +110,15 @@ def scale_numbers(column_values):
 
 # Function to get color based on percentage difference from the best
 def get_color(percent_difference):
-    if percent_difference <= 15:
-        return 'red'  # Light Red
-    elif 15 < percent_difference <= 45:
-        return '#b3ffb3'  # Orange
-    elif 45 < percent_difference <= 85:
-        return '#ff6666'  # Light Green
+    if percent_difference <= 1:
+        return 'green'  # Light Red
+    elif 1 < percent_difference <= 5:
+        return '#ff6666'
+          # Orange
+    elif 5 < percent_difference <= 10:
+        return '#b3ffb3'  # Light Green
     else:
-        return 'lightblue'  # Light Blue
+        return 'orange'  # Light Blue
 
 # Data
 seasons = ['Season 1', 'Season 2', 'Season 3']
@@ -125,7 +126,7 @@ plot_numbers = {'Season 1': ['Plot1', 'Plot3', 'Plot4', 'Plot5'],
                 'Season 2': ['Plot1', 'Plot3', 'Plot4', 'Plot5'],
                 'Season 3': ['Plot1', 'Plot3', 'Plot4', 'Plot5']}
 
-columns = ['Plant Height', 'No. of Tiller', 'No. of Panicle', 'SPAD', 'No. of Spikelet',
+columns = ['Plant Height', 'No. of Tiller', 'No. of Panicle', 'No. of Spikelet',
            'No. of Filled Grain', 'No. Of Unfilled Grain', 'Weight Grain (1000 grains)']
 
 # Create an empty list to store data
@@ -144,20 +145,20 @@ data_entry = pd.DataFrame(data_rows)
 
 # Provide a 2D array to fill in the numbers
 numbers_to_fill = [
-    [98.51, 6, 5, 28.48, 42, 195, 154, 26.27],
-    [98, 5, 5, 26.35, 35, 122, 155, 24.26],
-    [93.20, 5, 4, 28.81, 27, 137, 46, 25.95],
-    [93.99, 7, 5, 32.22, 35, 150, 163, 23.25],
+    [98.51, 6, 5,  42, 195, 154, 26.27],
+    [98, 5, 5,  35, 122, 155, 24.26],
+    [93.20, 5, 4,  27, 137, 46, 25.95],
+    [93.99, 7, 5,  35, 150, 163, 23.25],
 
-    [103.16, 5, 5, 0, 38, 188, 271, 33.31],
-    [98.75, 5, 5, 0, 38, 803, 250, 31.01],
-    [88.80, 4, 4, 0, 30, 643, 343, 30.55],
-    [92.07, 5, 5, 0, 37, 662, 290, 33.46],
+    [103.16, 5, 5,  38, 188, 271, 33.31],
+    [98.75, 5, 5,  38, 803, 250, 31.01],
+    [88.80, 4, 4,  30, 643, 343, 30.55],
+    [92.07, 5, 5,  37, 662, 290, 33.46],
 
-    [100.16, 5, 5, 0, 41, 84, 16, 33.19],
-    [96.95, 5, 4, 0, 41, 84, 16, 31.43],
-    [88.17, 3, 4, 0, 30, 86, 14, 26.20],
-    [93.98, 4, 4, 0, 37, 82, 5, 24.23],
+    [100.16, 5, 5,  41, 84, 16, 33.19],
+    [96.95, 5, 4,  41, 84, 16, 31.43],
+    [88.17, 3, 4,  30, 86, 14, 26.20],
+    [93.98, 4, 4,  37, 82, 5, 24.23],
 ]
 
 # Fill up the DataFrame with the provided numbers
@@ -184,13 +185,13 @@ html_code = f"""
         <tr>
             <th style="border: 2px solid #000; padding: 10px;">Season</th>
             <th style="border: 2px solid #000; padding: 10px;">Plot Number</th>
-            <th style="border: 2px solid #000; padding: 10px;">Total Score</th>
+            <th style="border: 2px solid #000; padding: 10px;">Score</th>
         </tr>
         {"".join(
             f"<tr><td style='border: 2px solid #000; padding: 10px;'>{row['Season']}</td>"
             f"<td style='border: 2px solid #000; padding: 10px;'>{row['Plot Number']}</td>"
             f"<td style='border: 2px solid #000; padding: 10px; "
-            f"background-color: {get_color((100 - row['Total Score']))};'>"
+            f"background-color: {get_color((  62.32 - row['Total Score']))};'>"
             f"{row['Total Score']}</td></tr>"
             for _, row in scaled_data.iterrows()
         )}
