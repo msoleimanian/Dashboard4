@@ -141,11 +141,8 @@ animated_line_html = """
 # Display the animated line using HTML
 
 
+
 st.set_page_config(page_title="Explore", page_icon="📈")
-
-
-
-
 option = st.sidebar.selectbox(
    "Select the Season...",
    ("Season1", "Season2", "Season3"),
