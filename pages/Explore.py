@@ -265,6 +265,15 @@ option = st.sidebar.selectbox(
    placeholder="Select the farm...",
 )
 
+optionplot = st.sidebar.selectbox(
+   "Select the Season...",
+   ("plot1", "plot3", "plot4", "plot5"),
+   index=0,
+   placeholder="Select the farm...",
+)
+
+
+
 if option == 'Season1':
    st.markdown(printCostumTitleAndContenth3(f"Rice trait: {option}",
                                             "what is the Risk level of each growth trait that has been measured."),
