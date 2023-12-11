@@ -46,3 +46,106 @@ col1, col2 = st.columns(2)
 
 
     st.markdown(animated_line_html, unsafe_allow_html=True)
+
+
+
+
+
+
+
+
+
+
+
+
+    # Nutrient data dictionary with initial values
+    nutrient_data = {'Mg': [2.2, 4.1, 5.1], 'Ca': [1.2, 1.6, 1.9]}
+
+    # Create a DataFrame with the dictionary
+    df = pd.DataFrame.from_dict(nutrient_data, orient='index', columns=[30, 60, 90])
+
+    # Animated line chart with Plotly
+    fig = px.line(df.transpose(), x=df.columns, y=df.index,
+                  labels={'value': 'Nutrient Level', 'variable': 'Nutrient'},
+                  title='Nutrient Trend over 3 Months')
+    fig.update_traces(mode='lines+markers')
+
+    # Display the animated chart
+    st.plotly_chart(fig)
+
+
+
+
+    st.write("Day 30")
+    col1, col2, col3, col4, col5 = st.columns(5)
+    st.write("Day 60")
+    col11, col12, col13, col14, col15 = st.columns(5)
+    st.write("Day 90")
+    col21, col22, col23, col24, col25 = st.columns(5)
+
+    with col1:
+        # Example usage
+        animated_linear_progress_bar_with_metric("3.56%", "N", 35.6, color='#55a630', width=85,
+                                                 height=30)
+    with col11:
+        # Example usage
+        animated_linear_progress_bar_with_metric("1.6%", "N", 16, color='#55a630', width=85,
+                                                 height=30)
+    with col21:
+        # Example usage
+        animated_linear_progress_bar_with_metric("2.35%", "N", 23.5, color='#55a630', width=85,
+                                                 height=30)
+    with col2:
+        # Example usage
+        animated_linear_progress_bar_with_metric("0.3%", "P", 30, color='#55a630', width=85,
+                                                 height=30)
+    with col12:
+        # Example usage
+        animated_linear_progress_bar_with_metric("0.2%", "P", 20, color='#55a630', width=85,
+                                                 height=30)
+    with col22:
+        # Example usage
+        animated_linear_progress_bar_with_metric("0.28%", "P", 28, color='#55a630', width=85,
+                                                 height=30)
+
+    with col3:
+        # Example usage
+        animated_linear_progress_bar_with_metric("2.5%", "K", 25, color='#55a630', width=85,
+                                                 height=30)
+    with col13:
+        # Example usage
+        animated_linear_progress_bar_with_metric("2.12%", "K", 21.2, color='#55a630', width=85,
+
+                                                 height=30)
+    with col23:
+        # Example usage
+        animated_linear_progress_bar_with_metric("2.3%", "K", 23, color='#55a630', width=85,
+                                                 height=30)
+
+    with col4:
+        # Example usage
+        animated_linear_progress_bar_with_metric("0.155%", "Mg", 15, color='#55a630', width=85,
+                                                 height=30)
+
+    with col14:
+        # Example usage
+
+        animated_linear_progress_bar_with_metric("0.151%", "Mg", 15, color='#55a630', width=85,
+                                                 height=30)
+    with col24:
+        # Example usage
+        animated_linear_progress_bar_with_metric("0.16%", "Mg", 16, color='#55a630', width=85,
+                                                 height=30)
+
+    with col5:
+        # Example usage
+        animated_linear_progress_bar_with_metric("0.27%", "Ca", 27, color='#55a630', width=85,
+                                                 height=30)
+    with col15:
+        # Example usage
+        animated_linear_progress_bar_with_metric("0.30%", "Ca", 30, color='#55a630', width=85,
+                                                 height=30)
+    with col25:
+        # Example usage
+        animated_linear_progress_bar_with_metric("0.28%", "Ca", 28, color='#55a630', width=85,
+                                                 height=30)
