@@ -155,7 +155,7 @@ st.markdown(
     <div style="background-color:#f4f4f4;padding:20px;border-radius:10px">
         <h1 style="text-align:center;font-size:32px;color:#2a3f54">{card_title}</h1>
         <hr style="border:1px solid #2a3f54">
-        <p style="font-size:18px;color:#2a3f54">{best_season_pot_text}</p>
+        <p style="font-size:18px;colorCultivation Excellence: Unveiling the Worst and Best Season and Pot:#2a3f54">{best_season_pot_text}</p>
     </div>
     """,
     unsafe_allow_html=True

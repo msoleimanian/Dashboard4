@@ -294,7 +294,7 @@ with col2:
     st.components.v1.html(progress_html, height=105)
 
 with col3:
-    max_weight = 9  # Maximum weight in KG
+    max_weight = 42  # Maximum weight in KG
     current_weight = df['No. of Spikelet'].mean()  # Current weight in KG
     progress_html = animated_circular_progress_bar('No. of Spikelet', current_weight, max_weight, color='red',
                                                    max_size=95)
