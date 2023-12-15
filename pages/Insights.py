@@ -146,28 +146,36 @@ animated_line_html = """
 </div>
 """
 
-
-
-
-st.markdown(
-    f"""
-    <div style="background-color:#f4f4f4;padding:20px;border-radius:10px">
-        <h1 style="text-align:center;font-size:32px;color:#2a3f54">Insight</h1>
-        <hr style="border:1px solid #2a3f54">
-        <p style="font-size:18px;colorCultivation Excellence: Unveiling the Worst and Best Season and Pot:#2a3f54">This section of the system displays the variations in nutrient levels for different seasons. 
-            You can compare the selected season and track nutrient levels over time with the provided plot.</p>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
-
-
-
-st.markdown(printCostumTitleAndContenth4("Select the Season and plot that you want to compare with best.",
+st.markdown(printCostumTitleAndContenth2("Best Performace",
                                          ""),
             unsafe_allow_html=True)
 
+col1 , col2 = st.columns(2)
+
+with col1:
+    st.markdown(printCostumTitleAndContenth3("Season2", ""), unsafe_allow_html=True)
+    st.write("High Value Trait")
+    max_weight = 33  # Maximum weight in KG
+    current_weight = 32.08  # Current weight in KG
+    progress_html = animated_circular_progress_bar('Weight Grain(1000 grains)', current_weight, max_weight,
+                                                   color='green',
+                                                   max_size=200)
+    st.components.v1.html(progress_html, height=210)
+
+with col2:
+    st.markdown(printCostumTitleAndContenth3(f"Plot5", ""), unsafe_allow_html=True)
+    st.write("High Value Trait")
+    max_weight = 33  # Maximum weight in KG
+    current_weight = 33  # Current weight in KG
+    progress_html = animated_circular_progress_bar('Weight Grain(1000 grains)', current_weight, max_weight,
+                                                   color='green',
+                                                   max_size=200)
+    st.components.v1.html(progress_html, height=210)
+
+
+st.markdown(printCostumTitleAndContenth2("Selected Season and Plot",
+                                         ""),
+            unsafe_allow_html=True)
 col1 , col2 = st.columns(2)
 with col1:
     optionseasson = st.selectbox(
@@ -189,17 +197,8 @@ with col2:
 dfs = pd.read_csv(f'Dataset/Rice/Season{optionseasson}.csv')
 dfp = dfs.query(f"""Plot == 'P{optionplot}'""")
 
-col11, col22 = st.columns(2)
-with col11:
-    st.markdown(printCostumTitleAndContenth3("Season2", ""), unsafe_allow_html=True)
-    st.write("High Value Trait")
-    max_weight = 33  # Maximum weight in KG
-    current_weight = 32.08  # Current weight in KG
-    progress_html = animated_circular_progress_bar('Weight Grain(1000 grains)', current_weight, max_weight,
-                                                   color='green',
-                                                   max_size=200)
-    st.components.v1.html(progress_html, height=210)
-with col22:
+col1, col2 = st.columns(2)
+with col1:
     st.markdown(printCostumTitleAndContenth3(f"Season{optionseasson}", ""), unsafe_allow_html=True)
     st.write("High Value Trait")
     max_weight = 33  # Maximum weight in KG
@@ -209,20 +208,8 @@ with col22:
                                                    max_size=200)
     st.components.v1.html(progress_html, height=210)
 
-
-col33, col44 = st.columns(2)
-with col33:
-    st.markdown(printCostumTitleAndContenth3(f"Plot5", ""), unsafe_allow_html=True)
-    st.write("High Value Trait")
-    max_weight = 33  # Maximum weight in KG
-    current_weight = 33  # Current weight in KG
-    progress_html = animated_circular_progress_bar('Weight Grain(1000 grains)', current_weight, max_weight,
-                                                   color='green',
-                                                   max_size=200)
-    st.components.v1.html(progress_html, height=210)
-
-with col44:
-    st.markdown(printCostumTitleAndContenth3(f"Plor{optionplot}", ""), unsafe_allow_html=True)
+with col2:
+    st.markdown(printCostumTitleAndContenth3(f"Plot{optionplot}", ""), unsafe_allow_html=True)
     st.write("High Value Trait")
     max_weight = 33  # Maximum weight in KG
     current_weight = dfp['Weight Grain (1000 grains)'].mean()  # Current weight in KG
@@ -254,15 +241,16 @@ fnbest90 = fnbest.query(f"""Day == 90""")
 nutrients = ['Mg', 'Ca', 'N', 'P', 'K']
 for i in range(5):
     n =nutrients[i]
-    nutrient_data = {f'{n} Season2 pot5': [fnbest30[nutrients[i]], fnbest60[nutrients[i]], fnbest90[nutrients[i]]], f'{nutrients[i]} Season{optionseasson} plot{optionplot}': [fn30[nutrients[i]], fn60[nutrients[i]], fn90[nutrients[i]]]}
+    nutrient_data = {f'{n} Season2 pot5 (Best Performance)': [fnbest30[nutrients[i]].values[0], fnbest60[nutrients[i]].values[0], fnbest90[nutrients[i]].values[0]], f'{nutrients[i]} Season{optionseasson} plot{optionplot}(Selected season)': [fn30[nutrients[i]].values[0], fn60[nutrients[i]].values[0], fn90[nutrients[i]].values[0]]}
 
     # Create a DataFrame with the dictionary
     df = pd.DataFrame.from_dict(nutrient_data, orient='index', columns=[30, 60, 90])
 
-    # Animated line chart with Plotly
+    # Animated line chart with Plot
     fig = px.line(df.transpose(), x=df.columns, y=df.index,
                   labels={'value': 'Nutrient Level', 'variable': 'Nutrient'},
-                  title='Nutrient Trend over 3 Months')
+                  title=n)
+    fig.update_layout(xaxis_title='DAYS')
     fig.update_traces(mode='lines+markers')
 
     # Display the animated chart
