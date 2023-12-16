@@ -143,5 +143,69 @@ animated_line_html = """
 
 
 st.set_page_config(page_title="Recommendation", page_icon="📈")
+st.markdown(printCostumTitleAndContenth1("Recommendation" ,"") , unsafe_allow_html=True)
+optionSeason = st.selectbox(
+    "Select the Season...",
+    ("Season1", "Season2", "Season3"),
+    index=0,
+    placeholder="Select the farm...",
+)
 
+optionPlot = st.selectbox(
+    "Select the Plot...",
+    ("Plot1", "Plot3", "Plot4", "Plot5"),
+    index=0,
+    placeholder="Select the farm...",
+)
 
+optionSubPlot = st.selectbox(
+    "Select the SubPlot...",
+    ("1", "2", "3"),
+    index=0,
+    placeholder="Select the farm...",
+)
+
+optionDay = st.selectbox(
+    "Select the Day...",
+    ("1", "2", "3"),
+    index=0,
+    placeholder="Select the farm...",
+)
+
+html = f"""
+
+    <div style="background-color:#f4f4f4;padding:20px;border-radius:10px">
+
+    <h1 style="color: #000; text-align: center;">Nutrient Recovery</h1>
+    <h5> </h5>
+    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <tr>
+            <th style="border: 2px solid #000; padding: 10px;"></th>
+            <th style="border: 2px solid #000; padding: 10px;">N</th>
+            <th style="border: 2px solid #000; padding: 10px;">K</th>
+            <th style="border: 2px solid #000; padding: 10px;">P</th>
+            <th style="border: 2px solid #000; padding: 10px;">Mg</th>
+            <th style="border: 2px solid #000; padding: 10px;">Ca</th>
+            
+    <tr>
+    <td style='border: 2px solid #000; padding: 10px;'>Current</td>
+    <td style='border: 2px solid #000; padding: 10px;'>2</td>
+    <td style='border: 2px solid #000; padding: 10px;'>3</td>
+    <td style='border: 2px solid #000; padding: 10px;'>4</td>
+    <td style='border: 2px solid #000; padding: 10px;'>5</td>
+    <td style='border: 2px solid #000; padding: 10px;'>6</td>
+    
+    </tr>
+    <tr><td style='border: 2px solid #000; padding: 10px;'>Intervention plan</td>
+       <td style='border: 2px solid #000; padding: 10px;'>+22%</td>
+    <td style='border: 2px solid #000; padding: 10px;'>-13%</td>
+    <td style='border: 2px solid #000; padding: 10px;'>+14%</td>
+    <td style='border: 2px solid #000; padding: 10px;'>-15%</td>
+    <td style='border: 2px solid #000; padding: 10px;'>+6%</td>
+
+    
+    </tr>
+    </table>
+    </div>
+"""
+st.markdown(html, unsafe_allow_html=True)
