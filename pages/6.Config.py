@@ -139,7 +139,6 @@ animated_line_html = """
 """
 
 # Display the animated line using HTML
+st.set_page_config(page_title="Config", page_icon="📈")
 
-
-
-st.set_page_config(page_title="Recommendation", page_icon="📈")
+st.markdownprintCostumTitleAndContenth2
