@@ -4,6 +4,9 @@ import numpy as np
 import pandas as pd
 import time
 import plotly.express as px
+
+
+
 def printCostumTitleAndContenth3(title, context):
     return f"""
         <div class="jumbotron">
@@ -30,17 +33,6 @@ def printCostumTitleAndContenth1(title, context):
         <div class="jumbotron">
         <h1>{title}</h1>
         <h5>{context}</h5>
-        </div>
-        <div class="container">
-        </div>
-        """
-
-
-def printCostumTitleAndContenth4(title, context):
-    return f"""
-        <div class="jumbotron">
-        <h4>{title}</h4>
-        <h4>{context}</h4>
         </div>
         <div class="container">
         </div>
@@ -146,112 +138,10 @@ animated_line_html = """
 </div>
 """
 
-st.markdown(printCostumTitleAndContenth2("Best Performace",
-                                         ""),
-            unsafe_allow_html=True)
-
-col1 , col2 = st.columns(2)
-
-with col1:
-    st.markdown(printCostumTitleAndContenth3("Season2", ""), unsafe_allow_html=True)
-    st.write("High Value Trait")
-    max_weight = 33  # Maximum weight in KG
-    current_weight = 32.08  # Current weight in KG
-    progress_html = animated_circular_progress_bar('Weight Grain(1000 grains)', current_weight, max_weight,
-                                                   color='green',
-                                                   max_size=200)
-    st.components.v1.html(progress_html, height=210)
-
-with col2:
-    st.markdown(printCostumTitleAndContenth3(f"Plot5", ""), unsafe_allow_html=True)
-    st.write("High Value Trait")
-    max_weight = 33  # Maximum weight in KG
-    current_weight = 33  # Current weight in KG
-    progress_html = animated_circular_progress_bar('Weight Grain(1000 grains)', current_weight, max_weight,
-                                                   color='green',
-                                                   max_size=200)
-    st.components.v1.html(progress_html, height=210)
+# Display the animated line using HTML
 
 
-st.markdown(printCostumTitleAndContenth2("Selected Season and Plot",
-                                         ""),
-            unsafe_allow_html=True)
-col1 , col2 = st.columns(2)
-with col1:
-    optionseasson = st.selectbox(
-       "Select the Season...",
-       ("1", "2" , "3"),
-       index=0,
-       placeholder="Select the farm...",
-    )
 
-with col2:
-    optionplot = st.selectbox(
-       "Select the Plot...",
-       ("1", "3", "4", "5"),
-       index=0,
-       placeholder="Select the farm...",
-    )
+st.set_page_config(page_title="Recommendation", page_icon="📈")
 
 
-dfs = pd.read_csv(f'Dataset/Rice/Season{optionseasson}.csv')
-dfp = dfs.query(f"""Plot == 'P{optionplot}'""")
-
-col1, col2 = st.columns(2)
-with col1:
-    st.markdown(printCostumTitleAndContenth3(f"Season{optionseasson}", ""), unsafe_allow_html=True)
-    st.write("High Value Trait")
-    max_weight = 33  # Maximum weight in KG
-    current_weight = dfs['Weight Grain (1000 grains)'].mean() # Current weight in KG
-    progress_html = animated_circular_progress_bar('Weight Grain(1000 grains)', current_weight, max_weight,
-                                                   color='green',
-                                                   max_size=200)
-    st.components.v1.html(progress_html, height=210)
-
-with col2:
-    st.markdown(printCostumTitleAndContenth3(f"Plot{optionplot}", ""), unsafe_allow_html=True)
-    st.write("High Value Trait")
-    max_weight = 33  # Maximum weight in KG
-    current_weight = dfp['Weight Grain (1000 grains)'].mean()  # Current weight in KG
-    progress_html = animated_circular_progress_bar('Weight Grain(1000 grains)', current_weight, max_weight,
-                                                   color='green',
-                                                   max_size=200)
-    st.components.v1.html(progress_html, height=210)
-
-df = pd.read_csv(f'Dataset/Rice/Season{optionseasson}.csv')
-df = df.query(f"""Plot == 'P{optionplot}'""")
-st.markdown(printCostumTitleAndContenth3(f"Nutrients Level",
-                                         ""),
-            unsafe_allow_html=True)
-
-
-dfn = pd.read_csv(f'Dataset/Rice/N.csv')
-
-fn = dfn.query(f"""Season == {optionseasson} & Plot == {optionplot}""")
-fn30 = fn.query(f"""Day == 30""")
-fn60 = fn.query(f"""Day == 60""")
-fn90 = fn.query(f"""Day == 90""")
-
-
-fnbest = dfn.query(f"""Season == 2 & Plot == 5""")
-fnbest30 = fnbest.query(f"""Day == 30""")
-fnbest60 = fnbest.query(f"""Day == 60""")
-fnbest90 = fnbest.query(f"""Day == 90""")
-# Nutrient data dictionary with initial values
-nutrients = ['Mg', 'Ca', 'N', 'P', 'K']
-for i in range(5):
-    n =nutrients[i]
-    nutrient_data = {f'{n} Season2 pot5 (Best Performance)': [fnbest30[nutrients[i]].values[0], fnbest60[nutrients[i]].values[0], fnbest90[nutrients[i]].values[0]], f'{nutrients[i]} Season{optionseasson} plot{optionplot}(Selected season)': [fn30[nutrients[i]].values[0], fn60[nutrients[i]].values[0], fn90[nutrients[i]].values[0]]}
-
-    # Create a DataFrame with the dictionary
-    df = pd.DataFrame.from_dict(nutrient_data, orient='index', columns=[30, 60, 90])
-
-    # Animated line chart with Plot
-    fig = px.line(df.transpose(), x=df.columns, y=df.index,
-                  labels={'value': 'Nutrient Level', 'variable': 'Nutrient'},
-                  title=n)
-    fig.update_layout(xaxis_title='DAYS')
-    fig.update_traces(mode='lines+markers')
-
-    # Display the animated chart
-    st.plotly_chart(fig)

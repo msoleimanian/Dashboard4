@@ -4,6 +4,10 @@ import numpy as np
 import pandas as pd
 import time
 import plotly.express as px
+import streamlit as st
+import pandas as pd
+import plotly.express as px
+import io
 
 
 
@@ -145,19 +149,26 @@ animated_line_html = """
 
 st.set_page_config(page_title="Explore", page_icon="📈")
 
-option = st.sidebar.selectbox(
-   "Select the Season...",
-   ("1", "2", "3"),
-   index=0,
-   placeholder="Select the farm...",
-)
 
-optionplot = st.sidebar.selectbox(
-   "Select the Plot...",
-   ("1", "3", "4", "5"),
-   index=0,
-   placeholder="Select the farm...",
-)
+st.markdown(printCostumTitleAndContenth1("Explore" , "") , unsafe_allow_html=True)
+
+col1, col2 = st.columns(2)
+
+with col1:
+    option = st.selectbox(
+       "Select the Season...",
+       ("1", "2", "3"),
+       index=0,
+       placeholder="Select the farm...",
+    )
+
+with col2:
+    optionplot = st.selectbox(
+       "Select the Plot...",
+       ("1", "3", "4", "5"),
+       index=0,
+       placeholder="Select the farm...",
+    )
 
 df = pd.read_csv(f'Dataset/Rice/Season{option}.csv')
 st.header(f"Season{option}")
@@ -245,7 +256,7 @@ df = pd.read_csv(f'Dataset/Rice/Season{option}.csv')
 st.header(f"Plot {optionplot}")
 df = df.query(f"""Plot == 'P{optionplot}'""")
 st.markdown(printCostumTitleAndContenth3(f"Rice Traits",
-                                         "what is the Risk level of each growth trait that has been measured."),
+                                         ""),
             unsafe_allow_html=True)
 col1, col2, col3, col4, col5, col6 = st.columns(6)
 with col1:
@@ -318,4 +329,53 @@ fig.update_traces(mode='lines+markers')
 
 # Display the animated chart
 st.plotly_chart(fig)
+
+st.markdown(printCostumTitleAndContenth1("Trend" , "") , unsafe_allow_html=True)
+
+
+import streamlit as st
+import pandas as pd
+import plotly.express as px
+import io
+
+# Your CSV data
+csv_data = """
+Season,Plot Number,Plant Height,No. of Tiller,No. of Panicle,SPAD,No. of Spikelet,No. of Filled Grain,No. Of Unfilled Grain,Weight Grain (1000 grains)
+Season 1,Plot1,98.51,6,5,28.48,42,195,154,26.27
+Season 1,Plot3,98,5,5,26.35,35,122,155,24.26
+Season 1,Plot4,93.2,5,4,28.81,27,137,46,25.95
+Season 1,Plot5,93.99,7,5,32.22,35,150,163,23.25
+Season 2,Plot1,103.16,5,5,0,38,188,271,33.31
+Season 2,Plot3,98.75,5,5,0,38,803,250,31.01
+Season 2,Plot4,88.8,4,4,0,30,643,343,30.55
+Season 2,Plot5,92.07,5,5,0,37,662,290,33.46
+Season 3,Plot1,100.16,5,5,0,41,84,16,33.19
+Season 3,Plot3,96.95,5,4,0,41,84,16,31.43
+Season 3,Plot4,88.17,3,4,0,30,86,14,26.2
+Season 3,Plot5,93.98,4,4,0,37,82,5,24.23
+"""
+traits = ['Plant Height', 'No. of Tiller', 'No. of Panicle', 'SPAD', 'No. of Spikelet', 'No. of Filled Grain', 'No. Of Unfilled Grain', 'Weight Grain (1000 grains)']
+
+optionTrait = st.selectbox(
+    "Select the Trait...",
+    traits,
+    index=0,
+    placeholder="Select the farm...",
+)
+
+# Create a DataFrame from CSV data
+df = pd.read_csv(io.StringIO(csv_data))
+# List of traits to plot
+# Streamlit App
+st.title('')
+# Plot grouped bar chart using Plotly Express
+fig = px.bar(df, x='Season', y=optionTrait, color='Plot Number',
+             barmode='group',
+             title=f'{optionTrait} across Seasons for different Plots',
+             labels={'Season': 'Season', optionTrait: f'{optionTrait}', 'Plot Number': 'Plot'})
+
+# Display the plot using st.plotly_chart
+st.plotly_chart(fig)
+# Additional information
+st.write("")
 
