@@ -172,6 +172,29 @@ optionDay = st.selectbox(
     placeholder="Select the farm...",
 )
 
+
+
+df = pd.read_csv('Dataset/Rice/N.csv')
+
+# Function to compare nutrient levels for two given seasons and plots
+def compare_nutrient_levels(season1, day1, plot1, season2, plot2):
+    # Filter rows for the given season and plot
+    subset1 = df[(df['Season'] == season1) & (df['Day'] == day1) & (df['Plot'] == plot1)]
+
+    # Filter rows for the comparison season and plot
+    subset2 = df[(df['Season'] == season2) & (df['Plot'] == plot2)]
+
+    # Display the comparison
+    if not subset1.empty and not subset2.empty:
+        comparison = pd.concat([subset1, subset2], keys=['Current', 'Comparison'])
+        print(comparison)
+        return subset1 , subset2
+    else:
+        print('No data found for the specified season and plot combination.')
+
+# Example: Compare nutrient levels for Season 1, Day 30, Plot 1 with Season 2, Plot 5
+cur  , com = compare_nutrient_levels(season1=1, day1=30, plot1=1, season2=2, plot2=5)
+print(cur['N'].mean())
 html = f"""
 
     <div style="background-color:#f4f4f4;padding:20px;border-radius:10px">
@@ -189,19 +212,19 @@ html = f"""
             
     <tr>
     <td style='border: 2px solid #000; padding: 10px;'>Current</td>
-    <td style='border: 2px solid #000; padding: 10px;'>2</td>
-    <td style='border: 2px solid #000; padding: 10px;'>3</td>
-    <td style='border: 2px solid #000; padding: 10px;'>4</td>
-    <td style='border: 2px solid #000; padding: 10px;'>5</td>
-    <td style='border: 2px solid #000; padding: 10px;'>6</td>
+    <td style='border: 2px solid #000; padding: 10px;'>{cur['N'].mean().round(2)}</td>
+    <td style='border: 2px solid #000; padding: 10px;'>{cur['K'].mean().round(2)}</td>
+    <td style='border: 2px solid #000; padding: 10px;'>{cur['P'].mean().round(2)}</td>
+    <td style='border: 2px solid #000; padding: 10px;'>{cur['Mg'].mean().round(2)}</td>
+    <td style='border: 2px solid #000; padding: 10px;'>{cur['Ca'].mean().round(2)}</td>
     
     </tr>
     <tr><td style='border: 2px solid #000; padding: 10px;'>Intervention plan</td>
-       <td style='border: 2px solid #000; padding: 10px;'>+22%</td>
-    <td style='border: 2px solid #000; padding: 10px;'>-13%</td>
-    <td style='border: 2px solid #000; padding: 10px;'>+14%</td>
-    <td style='border: 2px solid #000; padding: 10px;'>-15%</td>
-    <td style='border: 2px solid #000; padding: 10px;'>+6%</td>
+       <td style='border: 2px solid #000; padding: 10px;'>{com['N'].mean().round(2)}</td>
+    <td style='border: 2px solid #000; padding: 10px;'>{com['K'].mean().round(2)}</td>
+    <td style='border: 2px solid #000; padding: 10px;'>{com['P'].mean().round(2)}</td>
+    <td style='border: 2px solid #000; padding: 10px;'>{com['Mg'].mean().round(2)}</td>
+    <td style='border: 2px solid #000; padding: 10px;'>{com['Ca'].mean().round(2)}</td>
 
     
     </tr>
@@ -209,3 +232,4 @@ html = f"""
     </div>
 """
 st.markdown(html, unsafe_allow_html=True)
+
