@@ -165,21 +165,6 @@ performance_text = """
 On the Performance Page, witness the epic saga of crop seasons and generations. Our cutting-edge system meticulously scores each season or generation, evaluating crucial crop traits. The comparison unfolds, revealing how other plots and pots measure up to the best. Behold the vibrant landscape, color-coded to showcase the performance hierarchy. Embark on this animated journey where each plot and pot tells a unique tale!
 """
 
-# Title for the card
-card_title = "A Performance Odyssey 🌱🚀"
-
-# Render the card with an anime theme
-st.markdown(
-    f"""
-    <div style="background-color:#f4f4f4;padding:20px;border-radius:10px">
-        <h1 style="text-align:center;font-size:32px;color:#2a3f54">{card_title}</h1>
-        <hr style="border:1px solid #2a3f54">
-        <p style="font-size:18px;color:#2a3f54">{performance_text}</p>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
 seasons = ['Season 1', 'Season 2', 'Season 3']
 plot_numbers = {'Season 1': ['Plot1', 'Plot3', 'Plot4', 'Plot5'],
                 'Season 2': ['Plot1', 'Plot3', 'Plot4', 'Plot5'],
@@ -232,7 +217,6 @@ for col_index, col_values in enumerate(zip(*numbers_to_fill)):
 html_code = f"""
     <div style="background-color:#f4f4f4;padding:20px;border-radius:10px">
     <h2 style="color: #000; text-align: center;">Performance Table</h2>
-    <h5>This table displays the best and worst performances based on crop traits.</h5>
     <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
         <tr>
             <th style="border: 2px solid #000; padding: 10px;">Season</th>
@@ -268,7 +252,7 @@ For each metric:
 """
 
 # Display the HTML content and the guide
-st.markdown(guide_content, unsafe_allow_html=True)
+#st.markdown(guide_content, unsafe_allow_html=True)
 st.write("")
 st.markdown(html_code, unsafe_allow_html=True)
 

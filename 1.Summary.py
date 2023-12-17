@@ -241,7 +241,6 @@ html_code = f"""
 
     <div style="background-color:#f4f4f4;padding:20px;border-radius:10px">
 
-    <h1 style="color: #000; text-align: center;">Scores</h1>
     <h5> </h5>
     <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
         <tr>
@@ -270,21 +269,6 @@ html_code = f"""
 best_season_pot_text = """
 The system has the ability to distinguish the best and worst seasons and plots based on the most important attribute for ranking, while also considering the efficiency of other attributes relative to the best among plots. 
 """
-
-# Title for the card
-card_title = "Cultivation Excellence: Unveiling the Worst and Best Season and Plot 🌾"
-
-# Render the card with HTML format using Streamlit
-st.markdown(
-    f"""
-    <div style="background-color:#f4f4f4;padding:20px;border-radius:10px">
-        <h1 style="text-align:center;font-size:32px;color:#2a3f54">{card_title}</h1>
-        <hr style="border:1px solid #2a3f54">
-        <p style="font-size:18px;colorCultivation Excellence: Unveiling the Worst and Best Season and Plot:#2a3f54">{best_season_pot_text}</p>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
 
 option2 = st.sidebar.selectbox(
    "Select the Farm",

@@ -219,9 +219,7 @@ with col6:
                                                    max_size=95)
     st.components.v1.html(progress_html, height=105)
 
-st.markdown(printCostumTitleAndContenth3(f"Nutrients Level",
-                                         ""),
-            unsafe_allow_html=True)
+
 
 dfn = pd.read_csv(f'Dataset/Rice/N.csv')
 
@@ -243,6 +241,8 @@ df = pd.DataFrame.from_dict(nutrient_data, orient='index', columns=[30, 60, 90])
 fig = px.line(df.transpose(), x=df.columns, y=df.index,
               labels={'value': 'Nutrient Level', 'variable': 'Nutrient'},
               title='Nutrient Trend')
+fig.update_layout(xaxis_title='DAYS')
+
 fig.update_traces(mode='lines+markers')
 
 # Display the animated chart
@@ -325,11 +325,13 @@ df = pd.DataFrame.from_dict(nutrient_data, orient='index', columns=[30, 60, 90])
 fig = px.line(df.transpose(), x=df.columns, y=df.index,
               labels={'value': 'Nutrient Level', 'variable': 'Nutrient'},
               title='Nutrient Trend')
+fig.update_layout(xaxis_title='DAYS')
+
 fig.update_traces(mode='lines+markers')
 
 # Display the animated chart
 st.plotly_chart(fig)
-
+st.markdown(animated_line_html, unsafe_allow_html=True)
 st.markdown(printCostumTitleAndContenth1("Trend" , "") , unsafe_allow_html=True)
 
 

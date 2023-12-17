@@ -141,4 +141,18 @@ animated_line_html = """
 # Display the animated line using HTML
 st.set_page_config(page_title="Config", page_icon="📈")
 
-st.markdownprintCostumTitleAndContenth2
+st.markdown(printCostumTitleAndContenth2("Config", "Here should be selected the base of the comparison (benckmark)."), unsafe_allow_html=True)
+bench = st.radio(
+    "Benchmark",
+    ["Default", "manual"],
+    index=0,
+)
+if bench == "manual":
+    title = st.text_input('No.of Tiller')
+    title = st.text_input('No.of Panicle')
+    title = st.text_input('No.of Spikelet')
+    title = st.text_input('No.of Filled')
+    title = st.text_input('No. Of Unfilled Grain')
+    title = st.text_input('Weight Grain (1000 grains)')
+
+
