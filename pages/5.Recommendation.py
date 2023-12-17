@@ -237,11 +237,11 @@ html = f"""
     
     
     <tr><td style='border: 2px solid #000; padding: 10px;'>Intervention plan</td>
-       <td style='border: 2px solid #000; padding: 10px;'>{(((sel['N'].mean().round(2) - benchmark['N'].mean().round(2)) / benchmark['N'].mean().round(2))*100).round(2)}%</td>
-    <td style='border: 2px solid #000; padding: 10px;'>{(((sel['K'].mean().round(2) - benchmark['K'].mean().round(2)) / benchmark['K'].mean().round(2))*100).round(2)}%</td>
-    <td style='border: 2px solid #000; padding: 10px;'>{(((sel['P'].mean().round(2) - benchmark['P'].mean().round(2)) / benchmark['P'].mean().round(2))*100).round(2)}%</td>
-    <td style='border: 2px solid #000; padding: 10px;'>{(((sel['Mg'].mean().round(2) - benchmark['Mg'].mean().round(2)) / benchmark['Mg'].mean().round(2))*100).round(2)}%</td>
-    <td style='border: 2px solid #000; padding: 10px;'>{(((sel['Ca'].mean().round(2) - benchmark['Ca'].mean().round(2)) / benchmark['Ca'].mean().round(2))*100).round(2)}%</td>
+       <td style='border: 2px solid #000; padding: 10px;'>{(sel['N'].mean() - benchmark['N'].mean()).round(2)}</td>
+    <td style='border: 2px solid #000; padding: 10px;'>{(sel['K'].mean() - benchmark['K'].mean()).round(2)}</td>
+    <td style='border: 2px solid #000; padding: 10px;'>{(sel['P'].mean() - benchmark['P'].mean()).round(2)}</td>
+    <td style='border: 2px solid #000; padding: 10px;'>{(sel['Mg'].mean() - benchmark['Mg'].mean()).round(2)}</td>
+    <td style='border: 2px solid #000; padding: 10px;'>{(sel['Ca'].mean() - benchmark['Ca'].mean()).round(2)}</td>
 
     
     </tr>
