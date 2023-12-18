@@ -532,32 +532,70 @@ if option2 == 'Pock choy':
                                              ""),
                 unsafe_allow_html=True)
 
-    dfn = pd.read_csv(f'Dataset/Pock choy /PackchoyGeneration2.csv')
+    df = pd.read_csv(f'Dataset/Pock choy /PackchoyGeneration2.csv')
+    # Calculate the day count for each unique date
+    df['Day'] = df['Date'].rank(method='dense').astype(int)
+    # Keep only the relevant columns
+    df = df[['Day', 'Pot', 'SubPot', 'EC', 'pH', 'Leaves Count', 'Longest Leaf', 'Plant Height(mm)']]
+    # Display the modified DataFrame
+    print("####################")
+    fn2 = df.query(f"""Day == 2""")
+    fn3 = df.query(f"""Day == 3""")
+    fn4 = df.query(f"""Day == 4""")
+    fn5 = df.query(f"""Day == 5""")
+    fn6 = df.query(f"""Day == 6""")
+    fn7 = df.query(f"""Day == 7""")
+    fn8 = df.query(f"""Day == 8""")
+    fn9 = df.query(f"""Day == 9""")
+    fn10 = df.query(f"""Day == 10""")
+    fn11 = df.query(f"""Day == 11""")
+    print(df)
 
-    fn = dfn.query(f"""pot == {optionplot}""")
-    fn30 = fn.query(f"""Day == 30""")
-    fn60 = fn.query(f"""Day == 60""")
-    fn90 = fn.query(f"""Day == 90""")
 
-    dfn = pd.read_csv(f'Dataset/Pock choy /PackchoyGeneration1.csv')
-
-    fnbest = dfn.query(f"""pot == 2""")
-    fnbest30 = fnbest.query(f"""Day == 30""")
-    fnbest60 = fnbest.query(f"""Day == 60""")
-    fnbest90 = fnbest.query(f"""Day == 90""")
-    # Nutrient data dictionary with initial values
-    nutrients = ['Mg', 'Ca', 'N', 'P', 'K']
-    for i in range(5):
+    dfbest = pd.read_csv(f'Dataset/Pock choy /PackchoyGeneration1.csv')
+    # Calculate the day count for each unique date
+    dfbest['Day'] = dfbest['Date'].rank(method='dense').astype(int)
+    # Keep only the relevant columns
+    dfbest = dfbest[['Day', 'Pot', 'SubPot', 'EC', 'pH', 'Leaves Count', 'Longest Leaf', 'Plant Height(mm)']]
+    # Display the modified DataFrame
+    print("####################")
+    print(dfbest)
+    nutrients = ['EC', 'pH']
+    fnbest2 = dfbest.query(f"""Day == 2""")
+    fnbest3 = dfbest.query(f"""Day == 3""")
+    fnbest4 = dfbest.query(f"""Day == 4""")
+    fnbest5 = dfbest.query(f"""Day == 5""")
+    fnbest6 = dfbest.query(f"""Day == 6""")
+    fnbest7 = dfbest.query(f"""Day == 7""")
+    fnbest8 = dfbest.query(f"""Day == 8""")
+    fnbest9 = dfbest.query(f"""Day == 9""")
+    fnbest10 = dfbest.query(f"""Day == 10""")
+    fnbest11 = dfbest.query(f"""Day == 11""")
+    for i in range(2):
         n = nutrients[i]
-        nutrient_data = {f'{n} Season2 pot5 (Best Performance)': [fnbest30[nutrients[i]].values[0],
-                                                                  fnbest60[nutrients[i]].values[0],
-                                                                  fnbest90[nutrients[i]].values[0]],
-                         f'{nutrients[i]} Season{optionseasson} plot{optionplot}(Selected season)': [
-                             fn30[nutrients[i]].values[0], fn60[nutrients[i]].values[0],
-                             fn90[nutrients[i]].values[0]]}
+        nutrient_data = {f'{n} generation1 pot1 (Best Performance)': [fnbest2[nutrients[i]].values[0],
+                                                                  fnbest3[nutrients[i]].values[0],
+                                                                  fnbest4[nutrients[i]].values[0],
+                                                                  fnbest5[nutrients[i]].values[0],
+                                                                  fnbest6[nutrients[i]].values[0],
+                                                                  fnbest7[nutrients[i]].values[0],
+                                                                  fnbest8[nutrients[i]].values[0],
+                                                                  fnbest9[nutrients[i]].values[0],
+                                                                  fnbest10[nutrients[i]].values[0],
+                                                                  fnbest11[nutrients[i]].values[0]] ,
+                         f'{nutrients[i]} generation{optionseasson} pot{optionplot}(Selected generation)': [
+                             fn2[nutrients[i]].values[0], fn3[nutrients[i]].values[0],
+                             fn4[nutrients[i]].values[0],
+                             fn5[nutrients[i]].values[0],
+                             fn6[nutrients[i]].values[0],
+                             fn7[nutrients[i]].values[0],
+                             fn8[nutrients[i]].values[0],
+                             fn9[nutrients[i]].values[0],
+                             fn10[nutrients[i]].values[0],
+                             fn10[nutrients[i]].values[0]]}
 
         # Create a DataFrame with the dictionary
-        df = pd.DataFrame.from_dict(nutrient_data, orient='index', columns=[30, 60, 90])
+        df = pd.DataFrame.from_dict(nutrient_data, orient='index', columns=[2, 3, 4,5,6,7,8,9,10,11])
 
         # Animated line chart with Plot
         fig = px.line(df.transpose(), x=df.columns, y=df.index,
