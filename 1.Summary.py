@@ -272,7 +272,7 @@ The system has the ability to distinguish the best and worst seasons and plots b
 
 option2 = st.sidebar.selectbox(
    "Select the Farm",
-   ("Pok choy", "Rice"),
+   ("Pock choy", "Rice"),
    index=1,
    placeholder="Select the farm...",
 )
@@ -283,10 +283,11 @@ farmsdfst = pd.read_csv ('Dataset/FarmsStatus.csv')
 st.write("")
 st.write("")
 st.write("")
-st.markdown(html_code, unsafe_allow_html=True)
-st.markdown(animated_line_html, unsafe_allow_html=True)
+
 
 if option2 == 'Rice':
+    st.markdown(html_code, unsafe_allow_html=True)
+    st.markdown(animated_line_html, unsafe_allow_html=True)
     st.markdown(printCostumTitleAndContenth2("Best Performance",
                                              ""),
                 unsafe_allow_html=True)
@@ -397,6 +398,12 @@ if option2 == 'Rice':
 
     st.write("")
     st.write("")
+
+
+
+
+
+
     st.markdown(animated_line_html, unsafe_allow_html=True)
     st.markdown(printCostumTitleAndContenth2("Worst Performance",
                                              ""),
@@ -567,3 +574,192 @@ if option2 == 'Rice':
 
 
 
+
+
+if option2 == 'Pock choy':
+
+
+
+    # Create DataFrame
+    df = pd.read_csv('Dataset/Pock choy /generation.csv')
+    # Filter columns
+    filtered_df = df[['generation', 'pot', 'leavescount', 'longestleaf', 'plantheight']]
+
+    # Group by pot and subpot, calculate averages
+    grouped_df = filtered_df.groupby(['generation', 'pot']).mean().reset_index()
+
+    # Scale the values based on the height (score)
+    max_score = 10
+    height_scaling = max_score / grouped_df['plantheight'].max()
+    grouped_df['score'] = grouped_df['plantheight'] * height_scaling
+
+    # HTML code
+    html_code_packchoy = f"""
+        <div style="background-color:#f4f4f4;padding:20px;border-radius:10px">
+            <h5> </h5>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                <tr>
+                    <th style="border: 2px solid #000; padding: 10px;">Generation</th>
+                    <th style="border: 2px solid #000; padding: 10px;">Pot Number</th>
+                    <th style="border: 2px solid #000; padding: 10px;">Score</th>
+                    <th style="border: 2px solid #000; padding: 10px;">AVG Plant Height</th>
+                    <th style="border: 2px solid #000; padding: 10px;">AVG Longest leaf</th>
+                    <th style="border: 2px solid #000; padding: 10px;">AVG leaves count</th>
+                </tr>
+                {''.join([f'<tr><td style="border: 2px solid #000; padding: 10px;">{row["generation"]}</td>'
+                          f'<td style="border: 2px solid #000; padding: 10px;">{row["pot"]}</td>'
+                          f'<td style="border: 2px solid #000; padding: 10px; background-color: {get_color(10 -min(row["score"], max_score))}">{min(row["score"], max_score):.2f}</td>'
+                          f'<td style="border: 2px solid #000; padding: 10px;">{row["plantheight"]:.2f}</td>'
+                          f'<td style="border: 2px solid #000; padding: 10px;">{row["longestleaf"]:.2f}</td>'
+                          f'<td style="border: 2px solid #000; padding: 10px;">{row["leavescount"]:.2f}</td></tr>'
+                          for index, row in grouped_df.iterrows()])}
+            </table>
+        </div>
+    """
+
+    # Streamlit app
+    st.markdown(html_code_packchoy, unsafe_allow_html=True)
+    st.write("")
+    st.markdown(animated_line_html, unsafe_allow_html=True)
+
+    st.markdown(printCostumTitleAndContenth2("Best Performance",
+                                             ""),
+                unsafe_allow_html=True)
+
+    st.markdown(printCostumTitleAndContenth3("Generaion1", ""), unsafe_allow_html=True)
+
+    col11, col22 = st.columns(2)
+    with col11:
+        st.write("High Value Trait")
+        max_weight = 214.25  # Maximum weight in KG
+        current_weight = 128  # Current weight in KG
+        progress_html = animated_circular_progress_bar('Plant Height', current_weight, max_weight,
+                                                       color='green',
+                                                       max_size=200)
+        st.components.v1.html(progress_html, height=210)
+    with col22:
+        st.write("Other Traits Value")
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            max_weight = 106.75  # Maximum weight in KG
+            current_weight = 70  # Current weight in KG
+            progress_html = animated_circular_progress_bar('Longest Leaf', current_weight, max_weight,
+                                                           color='green',
+                                                           max_size=95)
+            st.components.v1.html(progress_html, height=105)
+
+        with col2:
+            max_weight = 9.70  # Maximum weight in KG
+            current_weight = 7  # Current weight in KG
+            progress_html = animated_circular_progress_bar('Leaf cout ', current_weight, max_weight,
+                                                           color='green',
+                                                           max_size=95)
+            st.components.v1.html(progress_html, height=105)
+
+
+    st.markdown(printCostumTitleAndContenth3("Pot1", ""), unsafe_allow_html=True)
+
+    col11, col22 = st.columns(2)
+    with col11:
+        st.write("High Value Trait")
+        max_weight = 214.25  # Maximum weight in KG
+        current_weight =  214.25  # Current weight in KG
+        progress_html = animated_circular_progress_bar('Plant Height', current_weight, max_weight,
+                                                       color='green',
+                                                       max_size=200)
+        st.components.v1.html(progress_html, height=210)
+    with col22:
+        st.write("Other Traits Value")
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            max_weight = 106.75  # Maximum weight in KG
+            current_weight = 106.75  # Current weight in KG
+            progress_html = animated_circular_progress_bar('Longest Leaf', current_weight, max_weight,
+                                                           color='green',
+                                                           max_size=95)
+            st.components.v1.html(progress_html, height=105)
+
+        with col2:
+            max_weight = 9.70  # Maximum weight in KG
+            current_weight = 9.70  # Current weight in KG
+            progress_html = animated_circular_progress_bar('Leaf cout ', current_weight, max_weight,
+                                                           color='green',
+                                                           max_size=95)
+            st.components.v1.html(progress_html, height=105)
+
+    st.write("")
+    st.write("")
+
+
+
+
+    st.write("")
+    st.markdown(animated_line_html, unsafe_allow_html=True)
+
+    st.markdown(printCostumTitleAndContenth2("Worst Performance",
+                                             ""),
+                unsafe_allow_html=True)
+
+    st.markdown(printCostumTitleAndContenth3("Generaion2", ""), unsafe_allow_html=True)
+
+    col11, col22 = st.columns(2)
+    with col11:
+        st.write("High Value Trait")
+        max_weight = 214.25  # Maximum weight in KG
+        current_weight = 82  # Current weight in KG
+        progress_html = animated_circular_progress_bar('Plant Height', current_weight, max_weight,
+                                                       color='orange',
+                                                       max_size=200)
+        st.components.v1.html(progress_html, height=210)
+    with col22:
+        st.write("Other Traits Value")
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            max_weight = 106.75  # Maximum weight in KG
+            current_weight = 130  # Current weight in KG
+            progress_html = animated_circular_progress_bar('Longest Leaf', current_weight, max_weight,
+                                                           color='green',
+                                                           max_size=95)
+            st.components.v1.html(progress_html, height=105)
+
+        with col2:
+            max_weight = 9.70  # Maximum weight in KG
+            current_weight = 4  # Current weight in KG
+            progress_html = animated_circular_progress_bar('Leaf cout ', current_weight, max_weight,
+                                                           color='orange',
+                                                           max_size=95)
+            st.components.v1.html(progress_html, height=105)
+
+
+    st.markdown(printCostumTitleAndContenth3("Pot2", ""), unsafe_allow_html=True)
+
+    col11, col22 = st.columns(2)
+    with col11:
+        st.write("High Value Trait")
+        max_weight = 214.25  # Maximum weight in KG
+        current_weight =  1.88  # Current weight in KG
+        progress_html = animated_circular_progress_bar('Plant Height', current_weight, max_weight,
+                                                       color='red',
+                                                       max_size=200)
+        st.components.v1.html(progress_html, height=210)
+    with col22:
+        st.write("Other Traits Value")
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            max_weight = 106.75  # Maximum weight in KG
+            current_weight = 3.75  # Current weight in KG
+            progress_html = animated_circular_progress_bar('Longest Leaf', current_weight, max_weight,
+                                                           color='red',
+                                                           max_size=95)
+            st.components.v1.html(progress_html, height=105)
+
+        with col2:
+            max_weight = 9.70  # Maximum weight in KG
+            current_weight = 0.62  # Current weight in KG
+            progress_html = animated_circular_progress_bar('Leaf cout ', current_weight, max_weight,
+                                                           color='red',
+                                                           max_size=95)
+            st.components.v1.html(progress_html, height=105)
+
+    st.write("")
+    st.write("")
