@@ -147,7 +147,7 @@ bench = st.radio(
     ["Benchmark based on the best harvest", "Benchmark based on this season and plot (Season2 Plot5)"],
     index=0,
 )
-if bench == "manual":
+if bench == "Benchmark based on the best harvest":
     title = st.text_input('No.of Tiller')
     title = st.text_input('No.of Panicle')
     title = st.text_input('No.of Spikelet')
