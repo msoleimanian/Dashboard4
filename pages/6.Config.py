@@ -144,7 +144,7 @@ st.set_page_config(page_title="Config", page_icon="📈")
 st.markdown(printCostumTitleAndContenth2("Config", "Select how you want the system to benchmark the performance of the plots and seasons"), unsafe_allow_html=True)
 bench = st.radio(
     "Benchmark",
-    ["Benchmark based on the best harvest", "Benchmark based on this season and plot (Season2 Plot5)"],
+    ["Benchmark based on the best harvest (Season2 Plot5)", "Benchmark based on this season and plot "],
     index=0,
 )
 if bench == "Benchmark based on the best harvest":
