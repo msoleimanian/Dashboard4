@@ -19,8 +19,8 @@ def printCostumTitleAndContenth3(title, context):
 
 def printCustomTitleAndContentrisk(title, context, color):
     return f"""
-        <div class="jumbotron" style="color: {color};">
-            <h3>{title}</h3>
+        <div class="jumbotron" ;background-color: "{color}";>
+            <h3 color="{color};">{title}</h3>
             <h4>{context}</h4>
         </div>
         """

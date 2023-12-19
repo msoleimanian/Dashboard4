@@ -272,7 +272,7 @@ The system has the ability to distinguish the best and worst seasons and plots b
 
 option2 = st.sidebar.selectbox(
    "Select the Farm",
-   ("Pock choy", "Rice"),
+   ("Pak choy", "Rice"),
    index=1,
    placeholder="Select the farm...",
 )
@@ -576,7 +576,7 @@ if option2 == 'Rice':
 
 
 
-if option2 == 'Pock choy':
+if option2 == 'Pak choy':
 
 
 
@@ -626,7 +626,7 @@ if option2 == 'Pock choy':
                                              ""),
                 unsafe_allow_html=True)
 
-    st.markdown(printCostumTitleAndContenth3("Generaion1", ""), unsafe_allow_html=True)
+    st.markdown(printCostumTitleAndContenth3("Generation1", ""), unsafe_allow_html=True)
 
     col11, col22 = st.columns(2)
     with col11:
@@ -700,7 +700,7 @@ if option2 == 'Pock choy':
                                              ""),
                 unsafe_allow_html=True)
 
-    st.markdown(printCostumTitleAndContenth3("Generaion2", ""), unsafe_allow_html=True)
+    st.markdown(printCostumTitleAndContenth3("Generation2", ""), unsafe_allow_html=True)
 
     col11, col22 = st.columns(2)
     with col11:

@@ -178,7 +178,7 @@ def color_cell2(best_value, value, lower_limit, upper_limit):
 
 option2 = st.sidebar.selectbox(
    "Select the Farm",
-   ("Pock choy", "Rice"),
+   ("Pak choy", "Rice"),
    index=1,
    placeholder="Select the farm...",
 )
@@ -408,7 +408,7 @@ def get_color(percent_difference):
         return '#ff6666'
     else:
         return 'red'
-if option2 == 'Pock choy':
+if option2 == 'Pak choy':
 
 
     # Create DataFrame

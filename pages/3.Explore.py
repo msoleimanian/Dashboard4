@@ -158,7 +158,7 @@ st.markdown(printCostumTitleAndContenth1("Explore" , "") , unsafe_allow_html=Tru
 
 option2 = st.sidebar.selectbox(
    "Select the Farm",
-   ("Pock choy", "Rice"),
+   ("Pak choy", "Rice"),
    index=1,
    placeholder="Select the farm...",
 )
@@ -392,7 +392,7 @@ if option2 == 'Rice':
     # Additional information
     st.write("")
 
-if option2 == 'Pock choy':
+if option2 == 'Pak choy':
 
     col1, col2 = st.columns(2)
 
