@@ -141,10 +141,10 @@ animated_line_html = """
 # Display the animated line using HTML
 st.set_page_config(page_title="Config", page_icon="📈")
 
-st.markdown(printCostumTitleAndContenth2("Config", "Here should be selected the base of the comparison (benckmark)."), unsafe_allow_html=True)
+st.markdown(printCostumTitleAndContenth2("Config", "Select how you want the system to benchmark the performance of the plots and seasons"), unsafe_allow_html=True)
 bench = st.radio(
     "Benchmark",
-    ["Default", "manual"],
+    ["Benchmark based on the best harvest", "Benchmark based on this season and plot (Season2 Plot5)"],
     index=0,
 )
 if bench == "manual":

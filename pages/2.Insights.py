@@ -314,7 +314,7 @@ if option2 == "Rice":
         st.components.v1.html(progress_html, height=210)
 
 
-    st.markdown(printCostumTitleAndContenth2("Selected Season and Plot",
+    st.markdown(printCostumTitleAndContenth2("Select Season and Plot",
                                              ""),
                 unsafe_allow_html=True)
     col1 , col2 = st.columns(2)
@@ -475,7 +475,7 @@ if option2 == 'Pock choy':
                                                        max_size=200)
         st.components.v1.html(progress_html, height=210)
 
-    st.markdown(printCostumTitleAndContenth2("Selected Season and Plot",
+    st.markdown(printCostumTitleAndContenth2("Select Season and Plot",
                                              ""),
                 unsafe_allow_html=True)
     col1, col2 = st.columns(2)
@@ -499,8 +499,6 @@ if option2 == 'Pock choy':
 
     dfs = pd.read_csv(f'Dataset/Pock choy /generation.csv')
     print(dfs)
-
-
 
     dfp1 = dfs.query(f"""generation == {optionseasson}""")
     dfp2 = dfs.query(f"""pot == {optionplot} & generation == {optionseasson}""")

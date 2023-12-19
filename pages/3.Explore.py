@@ -317,10 +317,6 @@ if option2 == 'Rice':
                                                        max_size=95)
         st.components.v1.html(progress_html, height=105)
 
-    st.markdown(printCostumTitleAndContenth3(f"Nutrients Trend",
-                                             ""),
-                unsafe_allow_html=True)
-
     dfn = pd.read_csv(f'Dataset/Rice/N.csv')
 
     fn = dfn.query(f"""Season == {option} & Plot == {optionplot}""")
