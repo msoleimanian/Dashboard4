@@ -17,6 +17,14 @@ def printCostumTitleAndContenth3(title, context):
         </div>
         """
 
+def printCustomTitleAndContentrisk(title, context, color):
+    return f"""
+        <div class="jumbotron" style="color: {color};">
+            <h3>{title}</h3>
+            <h4>{context}</h4>
+        </div>
+        """
+
 def printCostumTitleAndContenth2(title, context):
     return f"""
         <div class="jumbotron">
@@ -189,9 +197,25 @@ def compare_nutrient_levels(season1, day1, plot1, season2, day2 , plot2):
         # generate some integers
         values = random.randint(25,31)
         print(values)
+        percentage = round(((((37 - values) / 37)) * 100),2)
         st.markdown(printCostumTitleAndContenth3("Yield Predicted",
-                                                 f"Predicted Average Weight Grain for Season{optionSeason} at D90: {values} gram (% {round(((((37 - values) / 37)) * 100),2)} lower than the best, Best weight grain is 37 gram.)"),
+                                                 f"Predicted Average Weight Grain for Season{optionSeason} at D90: {values} gram (% {percentage} lower than the best, Best weight grain is 37 gram.)"),
                     unsafe_allow_html=True)
+        risk = ""
+        color = ""
+        if percentage<20:
+            risk = "No Risk"
+            color = "green"
+        elif (percentage<=25):
+            risk = "Low Risk"
+            color = "orange"
+        else:
+            risk = "High Risk"
+            color = "red"
+        st.markdown(printCustomTitleAndContentrisk("Risk Level",
+                                                 f"{risk}", color),
+                    unsafe_allow_html=True)
+
 
         return benchmark , selected
     else:
@@ -199,7 +223,7 @@ def compare_nutrient_levels(season1, day1, plot1, season2, day2 , plot2):
 
 
 # Example: Compare nutrient levels for Season 1, Day 30, Plot 1 with Season 2, Plot 5
-benchmark  , sel = compare_nutrient_levels(season2=int(optionSeason), day1=int(optionDay) , day2=int(optionDay), plot2=int(optionPlot), season1=2, plot1=5)
+benchmark, sel = compare_nutrient_levels(season2=int(optionSeason), day1=int(optionDay) , day2=int(optionDay), plot2=int(optionPlot), season1=2, plot1=5)
 html = f"""
 
     <div style="background-color:#f4f4f4;padding:20px;border-radius:10px">
@@ -226,7 +250,8 @@ html = f"""
     </tr>
     
     <tr>
-    <td style='border: 2px solid #000; padding: 10px;'>Select Season{optionSeason} Plot{optionPlot}</td>
+    <td style='border: 2px solid #000; padding: 10px;'>C
+    urrent Season{optionSeason} Plot{optionPlot}</td>
     <td style='border: 2px solid #000; padding: 10px;'>{sel['N'].mean().round(2)}</td>
     <td style='border: 2px solid #000; padding: 10px;'>{sel['K'].mean().round(2)}</td>
     <td style='border: 2px solid #000; padding: 10px;'>{sel['P'].mean().round(2)}</td>
