@@ -272,7 +272,7 @@ The system has the ability to distinguish the best and worst seasons and plots b
 
 option2 = st.sidebar.selectbox(
    "Select the Farm",
-   ("Pak choy", "Rice"),
+   ("Pak choy", "Rice", "Aqua"),
    index=1,
    placeholder="Select the farm...",
 )
@@ -763,3 +763,53 @@ if option2 == 'Pak choy':
 
     st.write("")
     st.write("")
+
+
+if option2 == "Aqua":
+    df = pd.read_csv('Dataset/Aqua/feed.csv')
+    dataframe = df['Temperature'].mean()
+
+    col1, col2, col3, col4, col5, col6 = st.columns(6)
+    with col1:
+        max_weight = 40  # Maximum weight in KG
+        current_weight = round(df['Temperature'].mean() , 2)  # Current weight in KG
+        progress_html = animated_circular_progress_bar('Temperature', current_weight, max_weight, color='orange',
+                                                       max_size=95)
+        st.components.v1.html(progress_html, height=105)
+
+    with col2:
+        max_weight = 14  # Maximum weight in KG
+        current_weight = round(df['pH'].mean() , 2)  # Current weight in KG
+        progress_html = animated_circular_progress_bar('pH', current_weight, max_weight, color='green',
+                                                       max_size=95)
+        st.components.v1.html(progress_html, height=105)
+
+    with col3:
+        max_weight = 2  # Maximum weight in KG
+        current_weight = round(df['Annomia'].mean() , 2)  # Current weight in KG
+        progress_html = animated_circular_progress_bar('No. of Spikelet', current_weight, max_weight, color='red',
+                                                       max_size=95)
+        st.components.v1.html(progress_html, height=105)
+
+    with col4:
+        max_weight = 180  # Maximum weight in KG
+        current_weight = df['No. of Filled Grain'].mean()  # Current weight in KG
+        progress_html = animated_circular_progress_bar('No. of Filled Grain', current_weight, max_weight, color='green',
+                                                       max_size=95)
+        st.components.v1.html(progress_html, height=105)
+
+    with col5:
+        max_weight = 155  # Maximum weight in KG
+        current_weight = df['No. Of Unfilled Grain'].mean()  # Current weight in KG
+        progress_html = animated_circular_progress_bar('No. Of Unfilled Grain', current_weight, max_weight,
+                                                       color='green',
+                                                       max_size=95)
+        st.components.v1.html(progress_html, height=105)
+
+    with col6:
+        max_weight = 28  # Maximum weight in KG
+        current_weight = df['Weight Grain (1000 grains)'].mean()  # Current weight in KG
+        progress_html = animated_circular_progress_bar('Weight Grain(1000 grains)', current_weight, max_weight,
+                                                       color='green',
+                                                       max_size=95)
+        st.components.v1.html(progress_html, height=105)

@@ -138,21 +138,46 @@ animated_line_html = """
 </div>
 """
 
+
+
 # Display the animated line using HTML
 st.set_page_config(page_title="Config", page_icon="📈")
 
-st.markdown(printCostumTitleAndContenth2("Config", "Select how you want the system to benchmark the performance of the plots and seasons"), unsafe_allow_html=True)
-bench = st.radio(
-    "Benchmark",
-    ["Benchmark based on the best harvest (Season2 Plot5)", "Benchmark based on this season and plot"],
-    index=0,
+option2 = st.sidebar.selectbox(
+   "Select the Farm",
+   ("Pak choy", "Rice"),
+   index=1,
+   placeholder="Select the farm...",
 )
-if bench == "Benchmark based on this season and plot":
-    title = st.text_input('No.of Tiller')
-    title = st.text_input('No.of Panicle')
-    title = st.text_input('No.of Spikelet')
-    title = st.text_input('No.of Filled')
-    title = st.text_input('No. Of Unfilled Grain')
-    title = st.text_input('Weight Grain (1000 grains)')
+st.markdown(printCostumTitleAndContenth2("Config",
+                                         "Select how you want the system to benchmark the performance of the plots and seasons"),
+            unsafe_allow_html=True)
+
+if option2 == "Rice":
+    bench = st.radio(
+        "Benchmark",
+        ["Benchmark based on the best harvest (Season2 Plot5)", "Benchmark based on this season and plot"],
+        index=0,
+    )
+    if bench == "Benchmark based on this season and plot":
+        title = st.text_input('No.of Tiller')
+        title = st.text_input('No.of Panicle')
+        title = st.text_input('No.of Spikelet')
+        title = st.text_input('No.of Filled')
+        title = st.text_input('No. Of Unfilled Grain')
+        title = st.text_input('Weight Grain (1000 grains)')
+
+
+if option2 == "Pak choy":
+    bench = st.radio(
+        "Benchmark",
+        ["Benchmark based on the best harvest (Plot1 Pot1)", "Benchmark based on this season and plot"],
+        index=0,
+    )
+    if bench == "Benchmark based on this season and plot":
+        title = st.text_input('Plant Height')
+        title = st.text_input('Leaves Count')
+        title = st.text_input('Longest Leaf')
+
 
 
