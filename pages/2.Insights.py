@@ -604,4 +604,83 @@ if option2 == 'Pak choy':
         st.plotly_chart(fig)
 
 if option2 == "Aqua":
-    st.write('ss')
+    st.title('the growth rate of the Fishes')
+    # Load the CSV data
+    df = pd.read_csv('Dataset/Aqua/GrowthRate.csv')
+
+    # Highlight rows with negative growth rates using a custom CSS class
+    def highlight_negative(val):
+        color = 'red' if '-' in str(val) else 'black'
+        return f'color: {color}; background-color: #FFD2D2' if color == 'red' else ''
+
+
+    # Apply the custom styling
+    styled_df = df.style.applymap(highlight_negative, subset=['GROWTH RATE LENGTH', 'GROWTH RATE WEIGHT'])
+
+    # Display the table using Streamlit
+    st.write(styled_df.to_html(classes='data-table', escape=False), unsafe_allow_html=True)
+
+    import streamlit as st
+    import pandas as pd
+    import io
+    import plotly.express as px
+
+    # Load the dataset
+    data = """Date,Temperature,pH,Ammonia,DO,Salinity,LENGTH (cm),WEIGHT (kg)
+    4-Jul-23,26.69,4.89,0.27,8.2,30,55.6,2.04
+    11-Jul-23,26.69,4.89,0.27,8.2,30,55.8,1.76
+    18-Jul-23,26.69,4.89,0.27,8.2,30,56,1.7
+    25-Jul-23,26.69,4.89,0.27,8.2,30,56.2,1.64
+    1-Aug-23,26.69,4.89,0.27,8.2,30,56.5,1.96
+    8-Aug-23,26.69,4.89,0.27,8.2,30,56.6,1.98
+    15-Aug-23,26.69,4.89,0.27,8.2,30,56.7,1.37
+    22-Aug-23,26.69,4.89,0.27,8.2,30,56.8,1.82
+    29-Aug-23,27.88,6.33,0.46,6.54,29.79,57,1.9
+    5-Sep-23,27.88,5.66,0.28,5.99,29.6,57.2,2
+    12-Sep-23,29.56,6.98,0.29,6.54,29.78,57.4,2.01
+    19-Sep-23,28.81,7.17,0.27,7.1,30.17,57.5,1.9
+    26-Sep-23,29.56,17.67,0.02,5.99,29.81,57.8,1.93"""
+
+    # Convert the string data to a DataFrame
+    df = pd.read_csv(io.StringIO(data))
+
+    # Display the dataset
+
+    # Plot line charts for Temperature, pH, Ammonia, DO, and Salinity with anomalies highlighted
+    fig_temperature = px.line(df, x='Date', y='Temperature', title='Temperature Trend')
+    fig_temperature.add_scatter(x=df['Date'][df['Temperature'] < df['Temperature'].mean() - df['Temperature'].std()],
+                                y=df['Temperature'][
+                                    df['Temperature'] < df['Temperature'].mean() - df['Temperature'].std()],
+                                mode='markers', marker=dict(color='red'), name='Anomaly')
+    fig_temperature.update_layout(xaxis_title='Date', yaxis_title='Temperature (°C)')
+
+    fig_pH = px.line(df, x='Date', y='pH', title='pH Trend')
+    fig_pH.add_scatter(x=df['Date'][df['pH'] < df['pH'].mean() - df['pH'].std()],
+                       y=df['pH'][df['pH'] < df['pH'].mean() - df['pH'].std()],
+                       mode='markers', marker=dict(color='red'), name='Anomaly')
+    fig_pH.update_layout(xaxis_title='Date', yaxis_title='pH')
+
+    fig_ammonia = px.line(df, x='Date', y='Ammonia', title='Ammonia Trend')
+    fig_ammonia.add_scatter(x=df['Date'][df['Ammonia'] > df['Ammonia'].mean() + df['Ammonia'].std()],
+                            y=df['Ammonia'][df['Ammonia'] > df['Ammonia'].mean() + df['Ammonia'].std()],
+                            mode='markers', marker=dict(color='red'), name='Anomaly')
+    fig_ammonia.update_layout(xaxis_title='Date', yaxis_title='Ammonia')
+
+    fig_DO = px.line(df, x='Date', y='DO', title='DO Trend')
+    fig_DO.add_scatter(x=df['Date'][df['DO'] < df['DO'].mean() - df['DO'].std()],
+                       y=df['DO'][df['DO'] < df['DO'].mean() - df['DO'].std()],
+                       mode='markers', marker=dict(color='red'), name='Anomaly')
+    fig_DO.update_layout(xaxis_title='Date', yaxis_title='DO')
+
+    fig_salinity = px.line(df, x='Date', y='Salinity', title='Salinity Trend')
+    fig_salinity.add_scatter(x=df['Date'][df['Salinity'] > df['Salinity'].mean() + df['Salinity'].std()],
+                             y=df['Salinity'][df['Salinity'] > df['Salinity'].mean() + df['Salinity'].std()],
+                             mode='markers', marker=dict(color='red'), name='Anomaly')
+    fig_salinity.update_layout(xaxis_title='Date', yaxis_title='Salinity')
+
+    # Display line charts
+    st.plotly_chart(fig_temperature)
+    st.plotly_chart(fig_pH)
+    st.plotly_chart(fig_ammonia)
+    st.plotly_chart(fig_DO)
+    st.plotly_chart(fig_salinity)
