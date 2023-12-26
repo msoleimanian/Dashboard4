@@ -766,50 +766,138 @@ if option2 == 'Pak choy':
 
 
 if option2 == "Aqua":
+    data = {
+        'Date': ['22-Aug-23', '29-Aug-23', '5-Sep-23', '12-Sep-23', '19-Sep-23', '26-Sep-23'],
+        'Temperature': [26.69, 27.88, 27.88, 29.56, 28.81, 29.56],
+        'pH': [4.89, 6.33, 5.66, 6.98, 7.17, 17.67],
+        'Ammonia': [0.27, 0.46, 0.28, 0.29, 0.27, 0.02],
+        'DO': [8.2, 6.54, 5.99, 6.54, 7.1, 5.99],
+        'Salinity': [30, 29.79, 29.6, 29.78, 30.17, 29.81],
+        'LENGTH (cm)': [56.8, 57, 57.2, 57.4, 57.5, 57.8],
+        'WEIGHT (kg)': [1.82, 1.9, 2, 2.01, 1.9, 1.93]
+    }
+
+    # Create an HTML string for the table
+    table_html = """
+        <table style="font-family: Arial, sans-serif; border-collapse: collapse; width: 100%;">
+            <tr style="background-color: #f2f2f2;">
+                <th>Date</th>
+                <th>Temperature</th>
+                <th>pH</th>
+                <th>Ammonia</th>
+                <th>DO</th>
+                <th>Salinity</th>
+                <th>LENGTH (cm)</th>
+                <th>WEIGHT (kg)</th>
+            </tr>
+            <tr>
+                <td>22-Aug-23</td>
+                <td>26.69</td>
+                <td>4.89</td>
+                <td>0.27</td>
+                <td>8.2</td>
+                <td>30</td>
+                <td>56.8</td>
+                <td>1.82</td>
+            </tr>
+            <tr>
+                <td>29-Aug-23</td>
+                <td>27.88</td>
+                <td>6.33</td>
+                <td>0.46</td>
+                <td>6.54</td>
+                <td>29.79</td>
+                <td>57</td>
+                <td>1.9</td>
+            </tr>
+            <tr>
+                <td>5-Sep-23</td>
+                <td>27.88</td>
+                <td>5.66</td>
+                <td>0.28</td>
+                <td>5.99</td>
+                <td>29.6</td>
+                <td>57.2</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>12-Sep-23</td>
+                <td>29.56</td>
+                <td>6.98</td>
+                <td>0.29</td>
+                <td>6.54</td>
+                <td>29.78</td>
+                <td>57.4</td>
+                <td>2.01</td>
+            </tr>
+            <tr>
+                <td>19-Sep-23</td>
+                <td>28.81</td>
+                <td>7.17</td>
+                <td>0.27</td>
+                <td>7.1</td>
+                <td>30.17</td>
+                <td>57.5</td>
+                <td>1.9</td>
+            </tr>
+            <tr>
+                <td>26-Sep-23</td>
+                <td>29.56</td>
+                <td>17.67</td>
+                <td>0.02</td>
+                <td>5.99</td>
+                <td>29.81</td>
+                <td>57.8</td>
+                <td>1.93</td>
+            </tr>
+        </table>
+    """
+
+    # Display the HTML table
+    st.markdown(table_html, unsafe_allow_html=True)
+
+    ####################
     df = pd.read_csv('Dataset/Aqua/feed.csv')
     dataframe = df['Temperature'].mean()
 
-    col1, col2, col3, col4, col5, col6 = st.columns(6)
+    # Streamlit app
+    st.write("")
+    st.markdown(animated_line_html, unsafe_allow_html=True)
+
+    st.markdown(printCostumTitleAndContenth3('The Avrage of the Sensors Values', ''), unsafe_allow_html=True)
+    col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
         max_weight = 40  # Maximum weight in KG
         current_weight = round(df['Temperature'].mean() , 2)  # Current weight in KG
         progress_html = animated_circular_progress_bar('Temperature', current_weight, max_weight, color='orange',
-                                                       max_size=95)
-        st.components.v1.html(progress_html, height=105)
+                                                       max_size=115)
+        st.components.v1.html(progress_html, height=125)
 
     with col2:
         max_weight = 14  # Maximum weight in KG
         current_weight = round(df['pH'].mean() , 2)  # Current weight in KG
         progress_html = animated_circular_progress_bar('pH', current_weight, max_weight, color='green',
-                                                       max_size=95)
-        st.components.v1.html(progress_html, height=105)
+                                                       max_size=115)
+        st.components.v1.html(progress_html, height=125)
 
     with col3:
         max_weight = 2  # Maximum weight in KG
-        current_weight = round(df['Annomia'].mean() , 2)  # Current weight in KG
-        progress_html = animated_circular_progress_bar('No. of Spikelet', current_weight, max_weight, color='red',
-                                                       max_size=95)
-        st.components.v1.html(progress_html, height=105)
+        current_weight = round(df['Ammonia'].mean() , 2)  # Current weight in KG
+        progress_html = animated_circular_progress_bar('Ammonia', current_weight, max_weight, color='red',
+                                                       max_size=115)
+        st.components.v1.html(progress_html, height=125)
 
     with col4:
-        max_weight = 180  # Maximum weight in KG
-        current_weight = df['No. of Filled Grain'].mean()  # Current weight in KG
-        progress_html = animated_circular_progress_bar('No. of Filled Grain', current_weight, max_weight, color='green',
-                                                       max_size=95)
-        st.components.v1.html(progress_html, height=105)
+        max_weight = 20  # Maximum weight in KG
+        current_weight = round(df['DO'].mean(),2) # Current weight in KG
+        progress_html = animated_circular_progress_bar('DO', current_weight, max_weight, color='green',
+                                                       max_size=115)
+        st.components.v1.html(progress_html, height=125)
 
     with col5:
-        max_weight = 155  # Maximum weight in KG
-        current_weight = df['No. Of Unfilled Grain'].mean()  # Current weight in KG
-        progress_html = animated_circular_progress_bar('No. Of Unfilled Grain', current_weight, max_weight,
+        max_weight = 40  # Maximum weight in KG
+        current_weight = round(df['Salinity'].mean(),2)  # Current weight in KG
+        progress_html = animated_circular_progress_bar('Salinity', current_weight, max_weight,
                                                        color='green',
-                                                       max_size=95)
-        st.components.v1.html(progress_html, height=105)
-
-    with col6:
-        max_weight = 28  # Maximum weight in KG
-        current_weight = df['Weight Grain (1000 grains)'].mean()  # Current weight in KG
-        progress_html = animated_circular_progress_bar('Weight Grain(1000 grains)', current_weight, max_weight,
-                                                       color='green',
-                                                       max_size=95)
-        st.components.v1.html(progress_html, height=105)
+                                                       max_size=115)
+        st.components.v1.html(progress_html, height=125)
