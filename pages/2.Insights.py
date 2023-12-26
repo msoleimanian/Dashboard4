@@ -178,14 +178,12 @@ def color_cell2(best_value, value, lower_limit, upper_limit):
 
 option2 = st.sidebar.selectbox(
    "Select the Farm",
-   ("Pak choy", "Rice"),
+   ("Pak choy", "Rice", "Aqua"),
    index=1,
    placeholder="Select the farm...",
 )
 
 if option2 == "Rice":
-
-
 
     performance_text = """
     On the Performance Page, witness the epic saga of crop seasons and generations. Our cutting-edge system meticulously scores each season or generation, evaluating crucial crop traits. The comparison unfolds, revealing how other plots and pots measure up to the best. Behold the vibrant landscape, color-coded to showcase the performance hierarchy. Embark on this animated journey where each plot and pot tells a unique tale!
@@ -605,4 +603,5 @@ if option2 == 'Pak choy':
         # Display the animated chart
         st.plotly_chart(fig)
 
-
+if option2 == "Aqua":
+    st.write('ss')
