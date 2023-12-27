@@ -151,128 +151,143 @@ animated_line_html = """
 
 
 st.set_page_config(page_title="Recommendation", page_icon="📈")
-st.markdown(printCostumTitleAndContenth1("Nutrient recovery recommendation" ,"") , unsafe_allow_html=True)
-optionSeason = st.selectbox(
-    "Select the Season...",
-    ("1", "2"),
-    index=0,
-    placeholder="Select the farm...",
-)
 
-optionPlot = st.selectbox(
-    "Select the Plot...",
-    ("1", "3", "4", "5"),
-    index=0,
-    placeholder="Select the farm...",
-)
 
-optionDay = st.selectbox(
-    "Select the Day...",
-    ("30", "60"),
-    index=0,
-    placeholder="Select the farm...",
+option2 = st.sidebar.selectbox(
+   "Select the Farm",
+   ("Pak choy", "Rice", "Aqua"),
+   index=1,
+   placeholder="Select the farm...",
 )
 
 
 
-df = pd.read_csv('Dataset/Rice/N.csv')
 
-# Function to compare nutrient levels for two given seasons and plots
-def compare_nutrient_levels(season1, day1, plot1, season2, day2 , plot2):
-    # Filter rows for the given season and plot
-    benchmark = df[(df['Season'] == season1) & (df['Day'] == day1) & (df['Plot'] == plot1)]
+if option2 == "Rice":
+    st.markdown(printCostumTitleAndContenth1("Nutrient recovery recommendation", ""), unsafe_allow_html=True)
+    optionSeason = st.selectbox(
+        "Select the Season...",
+        ("1", "2"),
+        index=0,
+        placeholder="Select the farm...",
+    )
 
-    # Filter rows for the comparison season and plot
-    selected = df[(df['Season'] == season2) & (df['Plot'] == plot2) & (df['Day'] == day2)]
+    optionPlot = st.selectbox(
+        "Select the Plot...",
+        ("1", "3", "4", "5"),
+        index=0,
+        placeholder="Select the farm...",
+    )
 
-    # Display the comparison
-    if not benchmark.empty and not selected.empty:
-        print("############")
-        print(benchmark['N'].mean() - selected['N'].mean())
-        comparison = pd.concat([benchmark, selected], keys=['Current', 'Comparison'])
+    optionDay = st.selectbox(
+        "Select the Day...",
+        ("30", "60"),
+        index=0,
+        placeholder="Select the farm...",
+    )
 
 
-        import random
-        # seed random number generator
-        # generate some integers
-        values = random.randint(25,31)
-        print(values)
-        percentage = round(((((37 - values) / 37)) * 100),2)
-        st.markdown(printCostumTitleAndContenth3("Yield Predicted",
-                                                 f"Predicted Average Weight Grain for Season{optionSeason} at D90: {values} gram (% {percentage} lower than the best, Best weight grain is 37 gram.)"),
-                    unsafe_allow_html=True)
-        risk = ""
-        color = ""
-        if percentage<20:
-            risk = "No Risk"
-            color = "green"
-        elif (percentage<=25):
-            risk = "Low Risk"
-            color = "orange"
+
+    df = pd.read_csv('Dataset/Rice/N.csv')
+
+    # Function to compare nutrient levels for two given seasons and plots
+    def compare_nutrient_levels(season1, day1, plot1, season2, day2 , plot2):
+        # Filter rows for the given season and plot
+        benchmark = df[(df['Season'] == season1) & (df['Day'] == day1) & (df['Plot'] == plot1)]
+
+        # Filter rows for the comparison season and plot
+        selected = df[(df['Season'] == season2) & (df['Plot'] == plot2) & (df['Day'] == day2)]
+
+        # Display the comparison
+        if not benchmark.empty and not selected.empty:
+            print("############")
+            print(benchmark['N'].mean() - selected['N'].mean())
+            comparison = pd.concat([benchmark, selected], keys=['Current', 'Comparison'])
+
+
+            import random
+            # seed random number generator
+            # generate some integers
+            values = random.randint(25,31)
+            print(values)
+            percentage = round(((((37 - values) / 37)) * 100),2)
+            st.markdown(printCostumTitleAndContenth3("Yield Predicted",
+                                                     f"Predicted Average Weight Grain for Season{optionSeason} at D90: {values} gram (% {percentage} lower than the best, Best weight grain is 37 gram.)"),
+                        unsafe_allow_html=True)
+            risk = ""
+            color = ""
+            if percentage<20:
+                risk = "No Risk"
+                color = "green"
+            elif (percentage<=25):
+                risk = "Low Risk"
+                color = "orange"
+            else:
+                risk = "High Risk"
+                color = "red"
+            st.markdown(printCustomTitleAndContentrisk("Risk Level",
+                                                     f"{risk}", color),
+                        unsafe_allow_html=True)
+
+
+            return benchmark , selected
         else:
-            risk = "High Risk"
-            color = "red"
-        st.markdown(printCustomTitleAndContentrisk("Risk Level",
-                                                 f"{risk}", color),
-                    unsafe_allow_html=True)
+            print('No data found for the specified season and plot combination.')
 
 
-        return benchmark , selected
-    else:
-        print('No data found for the specified season and plot combination.')
-
-
-# Example: Compare nutrient levels for Season 1, Day 30, Plot 1 with Season 2, Plot 5
-benchmark, sel = compare_nutrient_levels(season2=int(optionSeason), day1=int(optionDay) , day2=int(optionDay), plot2=int(optionPlot), season1=2, plot1=5)
-html = f"""
-
-    <div style="background-color:#f4f4f4;padding:20px;border-radius:10px">
-
-    <h1 style="color: #000; text-align: center;">Recommendation</h1>
-    <h5> </h5>
-    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+    # Example: Compare nutrient levels for Season 1, Day 30, Plot 1 with Season 2, Plot 5
+    benchmark, sel = compare_nutrient_levels(season2=int(optionSeason), day1=int(optionDay) , day2=int(optionDay), plot2=int(optionPlot), season1=2, plot1=5)
+    html = f"""
+    
+        <div style="background-color:#f4f4f4;padding:20px;border-radius:10px">
+    
+        <h1 style="color: #000; text-align: center;">Recommendation</h1>
+        <h5> </h5>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+            <tr>
+                <th style="border: 2px solid #000; padding: 10px;"></th>
+                <th style="border: 2px solid #000; padding: 10px;">N</th>
+                <th style="border: 2px solid #000; padding: 10px;">K</th>
+                <th style="border: 2px solid #000; padding: 10px;">P</th>
+                <th style="border: 2px solid #000; padding: 10px;">Mg</th>
+                <th style="border: 2px solid #000; padding: 10px;">Ca</th>
+                
         <tr>
-            <th style="border: 2px solid #000; padding: 10px;"></th>
-            <th style="border: 2px solid #000; padding: 10px;">N</th>
-            <th style="border: 2px solid #000; padding: 10px;">K</th>
-            <th style="border: 2px solid #000; padding: 10px;">P</th>
-            <th style="border: 2px solid #000; padding: 10px;">Mg</th>
-            <th style="border: 2px solid #000; padding: 10px;">Ca</th>
-            
-    <tr>
-    <td style='border: 2px solid #000; padding: 10px;'>Best Performance(Season2 Plot2)</td>
-    <td style='border: 2px solid #000; padding: 10px;'>{benchmark['N'].mean().round(2)}</td>
-    <td style='border: 2px solid #000; padding: 10px;'>{benchmark['K'].mean().round(2)}</td>
-    <td style='border: 2px solid #000; padding: 10px;'>{benchmark['P'].mean().round(2)}</td>
-    <td style='border: 2px solid #000; padding: 10px;'>{benchmark['Mg'].mean().round(2)}</td>
-    <td style='border: 2px solid #000; padding: 10px;'>{benchmark['Ca'].mean().round(2)}</td>
+        <td style='border: 2px solid #000; padding: 10px;'>Best Performance(Season2 Plot2)</td>
+        <td style='border: 2px solid #000; padding: 10px;'>{benchmark['N'].mean().round(2)}</td>
+        <td style='border: 2px solid #000; padding: 10px;'>{benchmark['K'].mean().round(2)}</td>
+        <td style='border: 2px solid #000; padding: 10px;'>{benchmark['P'].mean().round(2)}</td>
+        <td style='border: 2px solid #000; padding: 10px;'>{benchmark['Mg'].mean().round(2)}</td>
+        <td style='border: 2px solid #000; padding: 10px;'>{benchmark['Ca'].mean().round(2)}</td>
+        
+        </tr>
+        
+        <tr>
+        <td style='border: 2px solid #000; padding: 10px;'>C
+        urrent Season{optionSeason} Plot{optionPlot}</td>
+        <td style='border: 2px solid #000; padding: 10px;'>{sel['N'].mean().round(2)}</td>
+        <td style='border: 2px solid #000; padding: 10px;'>{sel['K'].mean().round(2)}</td>
+        <td style='border: 2px solid #000; padding: 10px;'>{sel['P'].mean().round(2)}</td>
+        <td style='border: 2px solid #000; padding: 10px;'>{sel['Mg'].mean().round(2)}</td>
+        <td style='border: 2px solid #000; padding: 10px;'>{sel['Ca'].mean().round(2)}</td>
+        
+        </tr>
+        
+        
+        <tr><td style='border: 2px solid #000; padding: 10px;'>Intervention plan</td>
+           <td style='border: 2px solid #000; padding: 10px;'>{(sel['N'].mean() - benchmark['N'].mean()).round(2)}</td>
+        <td style='border: 2px solid #000; padding: 10px;'>{(sel['K'].mean() - benchmark['K'].mean()).round(2)}</td>
+        <td style='border: 2px solid #000; padding: 10px;'>{(sel['P'].mean() - benchmark['P'].mean()).round(2)}</td>
+        <td style='border: 2px solid #000; padding: 10px;'>{(sel['Mg'].mean() - benchmark['Mg'].mean()).round(2)}</td>
+        <td style='border: 2px solid #000; padding: 10px;'>{(sel['Ca'].mean() - benchmark['Ca'].mean()).round(2)}</td>
     
-    </tr>
-    
-    <tr>
-    <td style='border: 2px solid #000; padding: 10px;'>C
-    urrent Season{optionSeason} Plot{optionPlot}</td>
-    <td style='border: 2px solid #000; padding: 10px;'>{sel['N'].mean().round(2)}</td>
-    <td style='border: 2px solid #000; padding: 10px;'>{sel['K'].mean().round(2)}</td>
-    <td style='border: 2px solid #000; padding: 10px;'>{sel['P'].mean().round(2)}</td>
-    <td style='border: 2px solid #000; padding: 10px;'>{sel['Mg'].mean().round(2)}</td>
-    <td style='border: 2px solid #000; padding: 10px;'>{sel['Ca'].mean().round(2)}</td>
-    
-    </tr>
-    
-    
-    <tr><td style='border: 2px solid #000; padding: 10px;'>Intervention plan</td>
-       <td style='border: 2px solid #000; padding: 10px;'>{(sel['N'].mean() - benchmark['N'].mean()).round(2)}</td>
-    <td style='border: 2px solid #000; padding: 10px;'>{(sel['K'].mean() - benchmark['K'].mean()).round(2)}</td>
-    <td style='border: 2px solid #000; padding: 10px;'>{(sel['P'].mean() - benchmark['P'].mean()).round(2)}</td>
-    <td style='border: 2px solid #000; padding: 10px;'>{(sel['Mg'].mean() - benchmark['Mg'].mean()).round(2)}</td>
-    <td style='border: 2px solid #000; padding: 10px;'>{(sel['Ca'].mean() - benchmark['Ca'].mean()).round(2)}</td>
+        
+        </tr>
+        </table>
+        </div>
+    """
 
-    
-    </tr>
-    </table>
-    </div>
-"""
+    st.markdown(html, unsafe_allow_html=True)
 
-st.markdown(html, unsafe_allow_html=True)
-
+if option2 =="Aqua":
+    st.header('')
